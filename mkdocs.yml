@@ -1,0 +1,31 @@
+site_name: chest-xray-classifier
+site_description: Production-grade 3-class chest X-ray classifier (normal / bacterial pneumonia / viral pneumonia).
+repo_url: https://github.com/kiselyovd/chest-xray-classifier
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+    - scheme: slate
+      primary: indigo
+  features:
+    - content.code.copy
+    - navigation.indexes
+    - navigation.tabs
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+markdown_extensions:
+  - admonition
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - tables
+nav:
+  - Home: index.md
+  - Architecture: architecture.md
+  - Training: training.md
+  - Serving: serving.md
+  - API reference: api.md

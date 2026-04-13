@@ -1,0 +1,21 @@
+stages:
+  prepare:
+    cmd: python -m chest_xray_classifier.data.prepare --raw data/raw --out data/processed
+    deps:
+      - data/raw
+      - src/chest_xray_classifier/data/prepare.py
+    outs:
+      - data/processed
+  train:
+    cmd: python -m chest_xray_classifier.training.train
+    deps:
+      - data/processed
+      - src/chest_xray_classifier
+      - configs
+    params:
+      - params.yaml:
+    outs:
+      - artifacts/checkpoints
+    metrics:
+      - reports/metrics.json:
+          cache: false
