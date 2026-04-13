@@ -11,3 +11,15 @@ def test_resnet50_forward():
     x = torch.randn(2, 3, 224, 224)
     out = model(x)
     assert out.shape == (2, 3)
+
+
+def test_dinov2_linear_probe_forward():
+    """DINOv2 linear probe returns logits of shape (B, num_classes)."""
+    import torch
+
+    from chest_xray_classifier.models import build_model
+
+    model = build_model("dinov2_linear_probe", num_classes=3, pretrained=False)
+    x = torch.randn(2, 3, 224, 224)
+    out = model(x)
+    assert out.shape == (2, 3)

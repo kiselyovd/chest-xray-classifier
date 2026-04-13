@@ -19,4 +19,8 @@ def build_model(name: str, num_classes: int, pretrained: bool = True) -> nn.Modu
         model = resnet50(weights=weights)
         model.fc = nn.Linear(model.fc.in_features, num_classes)
         return model
+    if name == "dinov2_linear_probe":
+        from .baseline_dinov2 import DinoV2LinearProbe
+
+        return DinoV2LinearProbe(num_classes=num_classes, pretrained=pretrained)
     raise ValueError(f"Unknown model: {name}")
