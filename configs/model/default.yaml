@@ -1,3 +1,3 @@
 name: convnextv2_tiny
 num_classes: 3
-lr: 1e-4
+lr: 3e-5
