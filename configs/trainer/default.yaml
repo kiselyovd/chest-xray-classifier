@@ -6,4 +6,4 @@ monitor: val/loss
 monitor_mode: min
 patience: 5
 output_dir: artifacts
-tracking_uri: file://./mlruns
+tracking_uri: ./mlruns
