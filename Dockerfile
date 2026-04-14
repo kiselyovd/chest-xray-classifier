@@ -13,14 +13,14 @@ RUN pip install --no-cache-dir uv==0.5.*
 WORKDIR /app
 
 FROM base AS training
-COPY pyproject.toml uv.lock* ./
+COPY pyproject.toml uv.lock* README.md ./
 RUN uv sync --frozen --group tracking
 COPY . .
 ENV PATH="/app/.venv/bin:${PATH}"
 ENTRYPOINT ["python", "-m", "chest_xray_classifier.training.train"]
 
 FROM base AS serving
-COPY pyproject.toml uv.lock* ./
+COPY pyproject.toml uv.lock* README.md ./
 RUN uv sync --frozen --group serving --no-dev
 COPY src ./src
 COPY configs ./configs
