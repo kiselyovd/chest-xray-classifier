@@ -1,4 +1,5 @@
 """Populate data/sample/ with a tiny subset for smoke tests and CI."""
+
 from __future__ import annotations
 
 import argparse
@@ -6,7 +7,6 @@ import random
 from pathlib import Path
 
 from PIL import Image
-
 
 CLASS_COUNTS = {"normal": 5, "bacterial_pneumonia": 3, "viral_pneumonia": 2}
 

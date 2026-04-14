@@ -1,4 +1,5 @@
 """Inference CLI — load a checkpoint and predict on input(s)."""
+
 from __future__ import annotations
 
 import argparse
@@ -26,9 +27,7 @@ def load_model(checkpoint_path: str | Path):
             "re-train after upgrading ClassificationModule."
         )
     backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
-    return ClassificationModule.load_from_checkpoint(
-        str(checkpoint_path), model=backbone
-    )
+    return ClassificationModule.load_from_checkpoint(str(checkpoint_path), model=backbone)
 
 
 def predict(model, input_path: str | Path):
@@ -46,6 +45,8 @@ def predict(model, input_path: str | Path):
         logits = model._forward_logits(x) if hasattr(model, "_forward_logits") else model(x)
         probs = logits.softmax(-1).squeeze(0).tolist()
     return {"probs": probs, "pred": int(max(range(len(probs)), key=probs.__getitem__))}
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", required=True)

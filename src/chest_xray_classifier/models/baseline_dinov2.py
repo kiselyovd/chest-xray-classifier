@@ -1,4 +1,5 @@
 """DINOv2 ViT-S feature extractor + linear classification head."""
+
 from __future__ import annotations
 
 import torch

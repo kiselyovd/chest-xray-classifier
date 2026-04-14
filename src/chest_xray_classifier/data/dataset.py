@@ -1,11 +1,13 @@
 """Dataset implementations."""
+
 from __future__ import annotations
 
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from PIL import Image
 from torch.utils.data import Dataset
+
 
 class ImageDataset(Dataset):
     """Generic image dataset with class-subdir layout."""
@@ -23,9 +25,7 @@ class ImageDataset(Dataset):
         self.class_to_idx = {c: i for i, c in enumerate(classes)}
         for cls, idx in self.class_to_idx.items():
             for ext in extensions:
-                self.samples.extend(
-                    (p, idx) for p in (self.root / cls).glob(f"**/*{ext}")
-                )
+                self.samples.extend((p, idx) for p in (self.root / cls).glob(f"**/*{ext}"))
 
     def __len__(self) -> int:
         return len(self.samples)

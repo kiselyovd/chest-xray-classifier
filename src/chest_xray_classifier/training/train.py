@@ -1,4 +1,5 @@
 """Training entrypoint (Hydra-powered)."""
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -21,9 +22,8 @@ def main(cfg: DictConfig) -> None:
     from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint
     from lightning.pytorch.loggers import MLFlowLogger
 
-    from ..models import build_model
     from ..data import ImageDataModule
-    from ..models import ClassificationModule
+    from ..models import ClassificationModule, build_model
 
     dm = ImageDataModule(**cfg.data)
     net = build_model(cfg.model.name, num_classes=cfg.model.num_classes)
@@ -45,7 +45,11 @@ def main(cfg: DictConfig) -> None:
             mode=cfg.trainer.monitor_mode,
             save_top_k=1,
         ),
-        EarlyStopping(monitor=cfg.trainer.monitor, mode=cfg.trainer.monitor_mode, patience=cfg.trainer.patience),
+        EarlyStopping(
+            monitor=cfg.trainer.monitor,
+            mode=cfg.trainer.monitor_mode,
+            patience=cfg.trainer.patience,
+        ),
     ]
     mlflow_logger = MLFlowLogger(
         experiment_name=cfg.experiment_name, tracking_uri=cfg.trainer.tracking_uri

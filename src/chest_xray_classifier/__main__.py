@@ -1,4 +1,5 @@
 """CLI entrypoint: python -m chest_xray_classifier"""
+
 from __future__ import annotations
 
 import sys

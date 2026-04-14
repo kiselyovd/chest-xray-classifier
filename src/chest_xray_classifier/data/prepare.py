@@ -1,4 +1,5 @@
 """Split Kaggle chest X-ray dataset into 3-class layout."""
+
 from __future__ import annotations
 
 import shutil

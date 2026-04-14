@@ -1,7 +1,9 @@
 """Model factory — returns a torch.nn.Module by name."""
+
 from __future__ import annotations
 
 from torch import nn
+
 
 def build_model(name: str, num_classes: int, pretrained: bool = True) -> nn.Module:
     if name == "convnextv2_tiny":
