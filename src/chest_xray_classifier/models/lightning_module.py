@@ -9,7 +9,13 @@ from torchmetrics.classification import MulticlassAccuracy, MulticlassF1Score
 
 
 class ClassificationModule(L.LightningModule):
-    def __init__(self, model: nn.Module, num_classes: int, lr: float = 1e-4) -> None:
+    def __init__(
+        self,
+        model: nn.Module,
+        num_classes: int,
+        lr: float = 1e-4,
+        model_name: str | None = None,
+    ) -> None:
         super().__init__()
         self.model = model
         self.criterion = nn.CrossEntropyLoss()

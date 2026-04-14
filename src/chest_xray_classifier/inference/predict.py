@@ -11,9 +11,24 @@ log = get_logger(__name__)
 
 
 def load_model(checkpoint_path: str | Path):
-    """Load a Lightning module from checkpoint."""
-    from ..models import ClassificationModule
-    return ClassificationModule.load_from_checkpoint(str(checkpoint_path))
+    """Load a Lightning module from checkpoint, rebuilding the backbone from hparams."""
+    import torch
+
+    from ..models import ClassificationModule, build_model
+
+    ckpt = torch.load(str(checkpoint_path), map_location="cpu", weights_only=False)
+    hp = ckpt.get("hyper_parameters", {})
+    model_name = hp.get("model_name")
+    num_classes = hp.get("num_classes")
+    if model_name is None or num_classes is None:
+        raise ValueError(
+            "Checkpoint missing model_name/num_classes hparams — "
+            "re-train after upgrading ClassificationModule."
+        )
+    backbone = build_model(model_name, num_classes=num_classes, pretrained=False)
+    return ClassificationModule.load_from_checkpoint(
+        str(checkpoint_path), model=backbone
+    )
 
 
 def predict(model, input_path: str | Path):

@@ -27,7 +27,12 @@ def main(cfg: DictConfig) -> None:
 
     dm = ImageDataModule(**cfg.data)
     net = build_model(cfg.model.name, num_classes=cfg.model.num_classes)
-    lit = ClassificationModule(net, num_classes=cfg.model.num_classes, lr=cfg.model.lr)
+    lit = ClassificationModule(
+        net,
+        num_classes=cfg.model.num_classes,
+        lr=cfg.model.lr,
+        model_name=cfg.model.name,
+    )
 
     out_dir = Path(cfg.trainer.output_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
