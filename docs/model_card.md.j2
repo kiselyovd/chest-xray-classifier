@@ -1,13 +1,26 @@
 ---
 license: mit
 tags:
-  - machine-learning
+  - image-classification
+  - chest-xray
+  - medical-imaging
+  - pneumonia
+  - pytorch-lightning
+  - convnext
+  - dinov2
 library_name: pytorch
+datasets:
+  - paultimothymooney/chest-xray-pneumonia
+pipeline_tag: image-classification
 ---
 
-# Model Card
+# chest-xray-classifier
 
 {{ model_description }}
+
+Three-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs. Main model: ConvNeXt-V2-Tiny fine-tuned on the Kaggle Chest X-Ray Images (Pneumonia) dataset (5,856 images) with a bacterial/viral split derived from filename metadata.
+
+Class index order: `("bacterial_pneumonia", "normal", "viral_pneumonia")`.
 
 ## Metrics
 
@@ -17,8 +30,18 @@ library_name: pytorch
 
 ```python
 from huggingface_hub import snapshot_download
-local = snapshot_download("REPO_ID")
+
+from chest_xray_classifier.inference.predict import load_model, predict
+
+ckpt_dir = snapshot_download("REPO_ID")
+model = load_model(f"{ckpt_dir}/best.ckpt")
+result = predict(model, "path/to/radiograph.jpeg")
+# {"pred": 1, "probs": [0.02, 0.95, 0.03]}
 ```
+
+## Intended use
+
+Research and educational purposes only. **This is not a medical device.** Do not use for clinical decision-making. Model was trained on a single publicly available pediatric dataset and has not been validated against clinical ground truth, population diversity, acquisition-device variation, or downstream clinical workflows.
 
 ## Source
 
