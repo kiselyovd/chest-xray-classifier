@@ -33,6 +33,8 @@ def main() -> None:
 
     configure_logging()
     model = load_model(args.checkpoint)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = model.to(device)
     model.eval()
 
     test_ds = ImageDataset(Path(args.data) / "test", transform=build_eval_transforms())
@@ -44,6 +46,7 @@ def main() -> None:
 
     with torch.no_grad():
         for x, y in loader:
+            x = x.to(device)
             logits = model._forward_logits(x) if hasattr(model, "_forward_logits") else model(x)
             probs = logits.softmax(-1)
             all_preds.extend(probs.argmax(-1).tolist())
