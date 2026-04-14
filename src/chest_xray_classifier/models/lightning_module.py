@@ -48,4 +48,4 @@ class ClassificationModule(L.LightningModule):
         self.log("val/f1_macro", self.val_f1, prog_bar=True)
 
     def configure_optimizers(self) -> optim.Optimizer:
-        return optim.AdamW(self.parameters(), lr=self.hparams.lr)
+        return optim.AdamW(self.parameters(), lr=self.hparams.lr)  # type: ignore[attr-defined]

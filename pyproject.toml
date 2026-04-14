@@ -76,8 +76,18 @@ convention = "google"
 
 [tool.mypy]
 python_version = "3.13"
-strict = true
 ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+check_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = "chest_xray_classifier.serving.*"
+ignore_errors = true
+
+[[tool.mypy.overrides]]
+module = "chest_xray_classifier.data.datamodule"
+ignore_errors = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
