@@ -1,0 +1,12 @@
+{
+  "Main model": "ConvNeXt-V2-Tiny",
+  "Main accuracy": "91.3%",
+  "Main macro F1": "90.3%",
+  "Main macro AUROC (OvR)": "97.5%",
+  "Baseline model": "DINOv2 ViT-S linear probe",
+  "Baseline accuracy": "85.6%",
+  "Baseline macro F1": "84.2%",
+  "Baseline macro AUROC (OvR)": "94.2%",
+  "Test set size": 624.0,
+  "Classes": "bacterial_pneumonia, normal, viral_pneumonia"
+}

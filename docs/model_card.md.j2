@@ -33,7 +33,7 @@ from huggingface_hub import snapshot_download
 
 from chest_xray_classifier.inference.predict import load_model, predict
 
-ckpt_dir = snapshot_download("REPO_ID")
+ckpt_dir = snapshot_download("kiselyovd/chest-xray-classifier")
 model = load_model(f"{ckpt_dir}/best.ckpt")
 result = predict(model, "path/to/radiograph.jpeg")
 # {"pred": 1, "probs": [0.02, 0.95, 0.03]}
