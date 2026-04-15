@@ -1,26 +1,41 @@
 ---
 license: mit
-tags:
-  - image-classification
-  - chest-xray
-  - medical-imaging
-  - pneumonia
-  - pytorch-lightning
-  - convnext
-  - dinov2
-library_name: pytorch
-datasets:
-  - paultimothymooney/chest-xray-pneumonia
-pipeline_tag: image-classification
+library_name: {{ library_name }}
+
+pipeline_tag: {{ pipeline_tag }}
+
+{% if base_model %}base_model: {{ base_model }}
+{% endif %}tags:
+{% for tag in tags %}  - {{ tag }}
+{% endfor %}datasets:
+{% for ds in datasets %}  - {{ ds }}
+{% endfor %}
+metrics:
+  - accuracy
+  - f1
+
+{% if widget_examples %}widget:
+{% for ex in widget_examples %}  - src: {{ ex.src }}
+    title: {{ ex.title }}
+{% endfor %}{% endif %}
+
+model-index:
+  - name: {{ repo_id }}
+    results:
+{% for task_result in metric_results %}      - task:
+          type: {{ task_result.task_type }}
+        dataset:
+          type: {{ task_result.dataset_type }}
+          name: {{ task_result.dataset_name }}
+        metrics:
+{% for m in task_result.metrics %}          - type: {{ m.type }}
+            value: {{ m.value }}
+{% endfor %}{% endfor %}
 ---
 
 # chest-xray-classifier
 
 {{ model_description }}
-
-Three-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs. Main model: ConvNeXt-V2-Tiny fine-tuned on the Kaggle Chest X-Ray Images (Pneumonia) dataset (5,856 images) with a bacterial/viral split derived from filename metadata.
-
-Class index order: `("bacterial_pneumonia", "normal", "viral_pneumonia")`.
 
 ## Metrics
 
@@ -28,21 +43,36 @@ Class index order: `("bacterial_pneumonia", "normal", "viral_pneumonia")`.
 
 ## Usage
 
+
 ```python
-from huggingface_hub import snapshot_download
+from transformers import AutoImageProcessor, AutoModelForImageClassification
+import torch
+from PIL import Image
 
-from chest_xray_classifier.inference.predict import load_model, predict
+processor = AutoImageProcessor.from_pretrained("{{ repo_id }}")
+model = AutoModelForImageClassification.from_pretrained("{{ repo_id }}")
 
-ckpt_dir = snapshot_download("kiselyovd/chest-xray-classifier")
-model = load_model(f"{ckpt_dir}/best.ckpt")
-result = predict(model, "path/to/radiograph.jpeg")
-# {"pred": 1, "probs": [0.02, 0.95, 0.03]}
+image = Image.open("your_image.png")
+inputs = processor(images=image, return_tensors="pt")
+with torch.no_grad():
+    logits = model(**inputs).logits
+predicted_class = logits.argmax(-1).item()
+print(model.config.id2label[predicted_class])
 ```
 
-## Intended use
 
-Research and educational purposes only. **This is not a medical device.** Do not use for clinical decision-making. Model was trained on a single publicly available pediatric dataset and has not been validated against clinical ground truth, population diversity, acquisition-device variation, or downstream clinical workflows.
+## Training Data
 
-## Source
+{% if hf_dataset %}Trained on [{{ dataset_name or hf_dataset }}](https://huggingface.co/datasets/{{ hf_dataset }}).
+{% else %}Training dataset details not specified.
+{% endif %}
 
-{{ github_url }}
+## Source Code
+
+[GitHub Repository]({{ github_url }})
+
+## Intended Use
+
+This model is provided for research and educational purposes. The authors make no warranties about its suitability for any particular application. Users are responsible for evaluating the model's fitness for their use case, including fairness, safety, and compliance with applicable regulations.
+
+> **Note:** This model card was generated from the [ml-project-template](https://github.com/kiselyovd/ml-project-template) scaffold.
