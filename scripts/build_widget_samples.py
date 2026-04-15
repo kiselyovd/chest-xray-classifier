@@ -11,7 +11,7 @@ from PIL import Image
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--src", default="data/processed/test")
-    parser.add_argument("--dst", default="data/sample/widget")
+    parser.add_argument("--dst", default="data/widget")
     parser.add_argument(
         "--classes", nargs="+", default=["normal", "bacterial_pneumonia", "viral_pneumonia"]
     )
