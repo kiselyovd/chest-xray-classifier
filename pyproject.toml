@@ -21,19 +21,25 @@ dependencies = [
   "torchmetrics>=1.3.0",
   "scikit-learn>=1.8.0",
   "transformers>=5.5.4",
+  "numpy>=1.26.0",
+  "jinja2>=3.1.0",
 ]
 
 [dependency-groups]
 dev = [
   "pytest>=8.0.0",
   "pytest-cov>=4.1.0",
-  "ruff>=0.3.0",
-  "mypy>=1.9.0",
-  "pre-commit>=3.6.0",
+  "ruff>=0.15.10",
+  "mypy>=1.20.1",
+  "pre-commit>=4.0.0",
   "nbqa>=1.8.0",
-  "nbstripout>=0.7.0",
+  "nbstripout>=0.9.1",
   "ipykernel>=6.29.0",
   "matplotlib>=3.8.0",
+  "deptry>=0.25.1",
+  "bandit[toml]>=1.9.4",
+  "interrogate>=1.7.0",
+  "codespell>=2.4.2",
 ]
 serving = [
   "fastapi>=0.110.0",
@@ -110,3 +116,36 @@ branch = true
 
 [tool.coverage.report]
 exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "notebooks", "data", "artifacts"]
+# B101: assert_used (pytest convention)
+# B614: pytorch_load — we load only our own trained checkpoints
+# B615: huggingface_unsafe_download — we download only our own / trusted HF repos
+# B701: jinja2_autoescape_false — templates render Markdown/YAML, not HTML
+skips = ["B101", "B614", "B615", "B701"]
+
+[tool.interrogate]
+ignore-init-method = true
+ignore-init-module = true
+ignore-magic = true
+ignore-private = false
+ignore-nested-functions = true
+ignore-module = false
+fail-under = 40
+exclude = ["tests", "notebooks", "docs", "build", "setup.py"]
+verbose = 1
+color = true
+
+[tool.deptry]
+extend_exclude = ["notebooks", "tests"]
+known_first_party = ["chest_xray_classifier"]
+# DEP004: dependency-groups (serving, tracking, docs) are intentional optional installs
+ignore = ["DEP004"]
+
+[tool.deptry.per_rule_ignores]
+DEP002 = ["nbstripout", "ipykernel", "pyyaml", "rich"]
+
+[tool.codespell]
+skip = "uv.lock,*.ipynb,*.lock,data/*"
+ignore-words-list = "te,nd,fo"

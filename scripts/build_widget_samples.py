@@ -1,8 +1,10 @@
 """Pick one image per class for HF widget examples (one per class)."""
+
 from __future__ import annotations
 
 import argparse
 from pathlib import Path
+
 from PIL import Image
 
 
@@ -10,8 +12,9 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--src", default="data/processed/test")
     parser.add_argument("--dst", default="data/sample/widget")
-    parser.add_argument("--classes", nargs="+",
-                        default=["normal", "bacterial_pneumonia", "viral_pneumonia"])
+    parser.add_argument(
+        "--classes", nargs="+", default=["normal", "bacterial_pneumonia", "viral_pneumonia"]
+    )
     args = parser.parse_args()
 
     src = Path(args.src)
@@ -33,8 +36,7 @@ def main() -> None:
         if not cls_dir.is_dir():
             raise SystemExit(f"Class dir not found: {cls_dir}")
         candidates = sorted(
-            p for p in cls_dir.iterdir()
-            if p.suffix.lower() in {".jpeg", ".jpg", ".png"}
+            p for p in cls_dir.iterdir() if p.suffix.lower() in {".jpeg", ".jpg", ".png"}
         )
         if not candidates:
             raise SystemExit(f"No images in {cls_dir}")
