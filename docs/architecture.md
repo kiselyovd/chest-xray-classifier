@@ -2,26 +2,24 @@
 
 ## Data flow
 
-```
-Kaggle zip ──► data/raw/{train,val,test}/{NORMAL,PNEUMONIA}
-                         │
-                         ▼   scripts/sync_data.sh
-                 data/prepare.py
-                 (split PNEUMONIA by filename: _bacteria_ / _virus_)
-                         │
-                         ▼
-  data/processed/{train,val,test}/{normal,bacterial_pneumonia,viral_pneumonia}
-                         │
-                         ▼   ImageDataModule + ImageDataset
-                  ClassificationModule (Lightning)
-                         │
-           ┌─────────────┼─────────────┐
-           ▼             ▼             ▼
-   artifacts/       mlruns/       evaluation/evaluate.py
-   checkpoints/     (MLflow)      ──► reports/metrics.json
-           │
-           ▼  scripts/publish_to_hf.py
-     Hugging Face Hub (kiselyovd/chest-xray-classifier)
+```mermaid
+flowchart TD
+    A["Kaggle: Chest X-Ray Pneumonia<br/>(pre-split train/val/test)"]:::external
+    A -->|sync_data.sh| B["data/raw/<br/>NORMAL / PNEUMONIA"]:::data
+    B -->|prepare.py<br/>bacterial/viral filename split| C["data/processed/<br/>3-class PNG dataset"]:::data
+    C -->|ImageDataModule| D["Lightning + Hydra<br/>training loop"]:::code
+    D --> E["ConvNeXt-V2-Tiny (main)<br/>or DINOv2 linear probe (baseline)"]:::model
+    E -->|MLflow logging| F["artifacts/checkpoints/best.ckpt"]:::artifact
+    F -->|evaluate.py| R["reports/metrics.json<br/>(acc + F1 + AUROC + CM)"]:::artifact
+    F -->|publish_to_hf.py| G["HuggingFace Hub<br/>kiselyovd/chest-xray-classifier"]:::external
+    F -->|FastAPI| H["POST /predict<br/>Docker + GHCR"]:::serve
+
+    classDef external fill:#FFE4B5,stroke:#FF8C00,color:#000
+    classDef data fill:#E6F3FF,stroke:#4A90E2,color:#000
+    classDef code fill:#F0F0F0,stroke:#666,color:#000
+    classDef model fill:#E8F5E9,stroke:#4CAF50,color:#000
+    classDef artifact fill:#FFF9C4,stroke:#F9A825,color:#000
+    classDef serve fill:#F3E5F5,stroke:#9C27B0,color:#000
 ```
 
 ## Model choices
