@@ -9,6 +9,8 @@
 
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
 
+![chest-xray-classifier hero](docs/images/hero.png)
+
 > **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** — production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
 
 **Russian:** [README.ru.md](README.ru.md) · **Docs:** [kiselyovd.github.io/chest-xray-classifier](https://kiselyovd.github.io/chest-xray-classifier/) · **Model:** [kiselyovd/chest-xray-classifier](https://huggingface.co/kiselyovd/chest-xray-classifier)

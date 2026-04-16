@@ -1,5 +1,7 @@
 # chest-xray-classifier
 
+![chest-xray-classifier · ConvNeXt-V2-Tiny pneumonia classifier](images/hero.png)
+
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs.
 
 ![Test-set confusion matrix · ConvNeXt-V2-Tiny · 91.3% accuracy (n=624)](images/confusion_matrix.png)
