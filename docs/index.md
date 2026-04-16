@@ -2,6 +2,8 @@
 
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs.
 
+![Test-set confusion matrix · ConvNeXt-V2-Tiny · 91.3% accuracy (n=624)](images/confusion_matrix.png)
+
 ## Overview
 
 | | |
@@ -18,6 +20,9 @@ Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bac
 - [Architecture](architecture.md) — data flow, model choices, metrics rationale
 - [Training](training.md) — running experiments, logging, overrides
 - [Serving](serving.md) — FastAPI endpoints, Docker deployment
+- [Benchmarks](BENCHMARKS.md) — vs literature, trade-offs
+- [Reproducibility](REPRODUCIBILITY.md) — pinned environment, one-command re-run
+- [Limitations](LIMITATIONS.md) — failure modes, dataset bias
 - [Model card](model_card.md.j2) — HF Hub card template
 
 ## Links
