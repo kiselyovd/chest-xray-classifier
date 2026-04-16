@@ -122,6 +122,20 @@ tests/              # pytest
 
 Исследовательский и образовательный проект. **Не является медицинским изделием**; запрещается использовать для клинических решений.
 
+Известные ограничения и режимы отказа — в [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+
+## Цитирование
+
+```bibtex
+@software{kiselyov2026chestxray,
+  author  = {Kiselyov, Daniil},
+  title   = {chest-xray-classifier: ConvNeXt-V2-Tiny pneumonia classifier},
+  year    = {2026},
+  url     = {https://github.com/kiselyovd/chest-xray-classifier},
+  version = {v0.1.0}
+}
+```
+
 ## Лицензия
 
 MIT — см. [LICENSE](LICENSE).

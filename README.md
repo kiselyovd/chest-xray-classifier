@@ -2,11 +2,14 @@
 
 [![CI](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
 [![Docs](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/docs.yml/badge.svg)](https://kiselyovd.github.io/chest-xray-classifier/)
+[![codecov](https://codecov.io/gh/kiselyovd/chest-xray-classifier/branch/main/graph/badge.svg)](https://codecov.io/gh/kiselyovd/chest-xray-classifier)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)](https://www.python.org/)
 [![HF Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
+
+> **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** — production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
 
 **Russian:** [README.ru.md](README.ru.md) · **Docs:** [kiselyovd.github.io/chest-xray-classifier](https://kiselyovd.github.io/chest-xray-classifier/) · **Model:** [kiselyovd/chest-xray-classifier](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
@@ -121,6 +124,22 @@ tests/              # pytest suite
 ## Intended Use
 
 Research and educational only. **Not** a medical device; do not use for clinical decisions.
+
+See [LIMITATIONS.md](docs/LIMITATIONS.md) for known failure modes and dataset-bias analysis.
+
+## Citation
+
+If this repo helps your work, please cite:
+
+```bibtex
+@software{kiselyov2026chestxray,
+  author  = {Kiselyov, Daniil},
+  title   = {chest-xray-classifier: ConvNeXt-V2-Tiny pneumonia classifier},
+  year    = {2026},
+  url     = {https://github.com/kiselyovd/chest-xray-classifier},
+  version = {v0.1.0}
+}
+```
 
 ## License
 
