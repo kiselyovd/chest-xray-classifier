@@ -1,10 +1,11 @@
 # chest-xray-classifier
 
-[![CI](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
-[![Docs](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/docs.yml/badge.svg)](https://kiselyovd.github.io/chest-xray-classifier/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/)
-[![HF Model](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Model-yellow)](https://huggingface.co/kiselyovd/chest-xray-classifier)
+[![CI](https://img.shields.io/github/actions/workflow/status/kiselyovd/chest-xray-classifier/ci.yml?branch=main&label=CI&style=for-the-badge&logo=github)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-mkdocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://kiselyovd.github.io/chest-xray-classifier/)
+[![codecov](https://img.shields.io/codecov/c/github/kiselyovd/chest-xray-classifier?style=for-the-badge&logo=codecov&logoColor=white)](https://codecov.io/gh/kiselyovd/chest-xray-classifier)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
+[![Python 3.12+](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![HF Model](https://img.shields.io/badge/🤗%20HF%20Hub-model-FFD21E?style=for-the-badge)](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
 Production-ready классификатор рентгенограмм грудной клетки на 3 класса: **норма**, **бактериальная пневмония**, **вирусная пневмония**.
 
