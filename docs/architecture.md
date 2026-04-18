@@ -14,12 +14,12 @@ flowchart TD
     F -->|publish_to_hf.py| G["HuggingFace Hub<br/>kiselyovd/chest-xray-classifier"]:::external
     F -->|FastAPI| H["POST /predict<br/>Docker + GHCR"]:::serve
 
-    classDef external fill:#FFE4B5,stroke:#FF8C00,color:#000
-    classDef data fill:#E6F3FF,stroke:#4A90E2,color:#000
-    classDef code fill:#F0F0F0,stroke:#666,color:#000
-    classDef model fill:#E8F5E9,stroke:#4CAF50,color:#000
-    classDef artifact fill:#FFF9C4,stroke:#F9A825,color:#000
-    classDef serve fill:#F3E5F5,stroke:#9C27B0,color:#000
+    classDef external fill:#E1F5FE,stroke:#0288D1,color:#01579B
+    classDef data fill:#B3E5FC,stroke:#0277BD,color:#01579B
+    classDef code fill:#81D4FA,stroke:#0277BD,color:#01579B
+    classDef model fill:#4FC3F7,stroke:#01579B,color:#fff
+    classDef artifact fill:#29B6F6,stroke:#01579B,color:#fff
+    classDef serve fill:#0288D1,stroke:#01579B,color:#fff
 ```
 
 ## Model choices
