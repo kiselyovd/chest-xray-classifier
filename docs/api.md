@@ -8,28 +8,40 @@ Auto-generated reference for the `chest_xray_classifier` package via [mkdocstrin
 
 ## Data
 
-::: chest_xray_classifier.data
+::: chest_xray_classifier.data.datamodule
+::: chest_xray_classifier.data.dataset
+::: chest_xray_classifier.data.prepare
+::: chest_xray_classifier.data.transforms
 
 ## Models
 
-::: chest_xray_classifier.models
+::: chest_xray_classifier.models.baseline_dinov2
+::: chest_xray_classifier.models.factory
+::: chest_xray_classifier.models.lightning_module
+::: chest_xray_classifier.models.metrics
 
 ## Training
 
-::: chest_xray_classifier.training
+::: chest_xray_classifier.training.train
 
 ## Evaluation
 
-::: chest_xray_classifier.evaluation
+::: chest_xray_classifier.evaluation.evaluate
 
 ## Inference
 
-::: chest_xray_classifier.inference
+::: chest_xray_classifier.inference.predict
 
 ## Serving
 
-::: chest_xray_classifier.serving
+::: chest_xray_classifier.serving.dependencies
+::: chest_xray_classifier.serving.errors
+::: chest_xray_classifier.serving.main
+::: chest_xray_classifier.serving.routes
+::: chest_xray_classifier.serving.schemas
 
 ## Utilities
 
-::: chest_xray_classifier.utils
+::: chest_xray_classifier.utils.hf_hub
+::: chest_xray_classifier.utils.logging
+::: chest_xray_classifier.utils.seed
