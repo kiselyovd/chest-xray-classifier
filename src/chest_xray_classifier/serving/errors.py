@@ -7,14 +7,15 @@ from fastapi.responses import JSONResponse
 
 
 class ModelNotLoadedError(RuntimeError):
-    pass
+    """Raised when the checkpoint has not been loaded into the running app yet."""
 
 
 class InferenceError(RuntimeError):
-    pass
+    """Raised on irrecoverable errors during forward-pass (corrupt image, CUDA OOM)."""
 
 
 async def inference_error_handler(request: Request, exc: InferenceError) -> JSONResponse:
+    """FastAPI handler: map `InferenceError` to a 503 with a structured payload."""
     return JSONResponse(
         status_code=503,
         content={
@@ -26,6 +27,7 @@ async def inference_error_handler(request: Request, exc: InferenceError) -> JSON
 
 
 async def model_not_loaded_handler(request: Request, exc: ModelNotLoadedError) -> JSONResponse:
+    """FastAPI handler: map `ModelNotLoadedError` to a 503 `model_not_ready` response."""
     return JSONResponse(
         status_code=503,
         content={
