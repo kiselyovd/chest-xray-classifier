@@ -18,7 +18,6 @@ Auto-generated reference for the `chest_xray_classifier` package via [mkdocstrin
 ::: chest_xray_classifier.models.baseline_dinov2
 ::: chest_xray_classifier.models.factory
 ::: chest_xray_classifier.models.lightning_module
-::: chest_xray_classifier.models.metrics
 
 ## Training
 
