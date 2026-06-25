@@ -183,11 +183,17 @@ def main() -> None:
         tmp_path = Path(tmp)
 
         for item in artifacts_dir.rglob("*"):
-            if item.is_file():
-                rel = item.relative_to(artifacts_dir)
-                dest = tmp_path / rel
-                dest.parent.mkdir(parents=True, exist_ok=True)
-                dest.write_bytes(item.read_bytes())
+            if not item.is_file():
+                continue
+            rel = item.relative_to(artifacts_dir)
+            # Skip raw Lightning checkpoints (unusable by from_pretrained) and the
+            # hf_export/ subdir (its contents are copied to the repo root below, so
+            # uploading it here would duplicate the weights under hf_export/).
+            if item.suffix == ".ckpt" or rel.parts[0] == "hf_export":
+                continue
+            dest = tmp_path / rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(item.read_bytes())
 
         hf_export_dir = Path(args.hf_export)
         if hf_export_dir.is_dir():

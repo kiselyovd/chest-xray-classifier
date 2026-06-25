@@ -26,6 +26,15 @@ def main() -> None:
     backbone = lit.model
     if not hasattr(backbone, "save_pretrained"):
         raise SystemExit("Backbone is not transformers-compatible; cannot export natively.")
+
+    # Inject real class labels so the HF inference widget shows meaningful names.
+    # Authoritative order is alphabetical: the dataset loader sorts class dir names
+    # (see src/chest_xray_classifier/data/dataset.py).
+    class_names = sorted(["bacterial_pneumonia", "normal", "viral_pneumonia"])
+    if hasattr(backbone, "config"):
+        backbone.config.id2label = {i: name for i, name in enumerate(class_names)}
+        backbone.config.label2id = {name: i for i, name in enumerate(class_names)}
+
     backbone.save_pretrained(out)
 
     if args.base_model:
