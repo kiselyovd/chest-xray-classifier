@@ -1,4 +1,4 @@
-"""Model factory — returns a torch.nn.Module by name."""
+"""Model factory - returns a torch.nn.Module by name."""
 
 from __future__ import annotations
 

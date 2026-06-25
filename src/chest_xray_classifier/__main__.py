@@ -6,7 +6,7 @@ import sys
 
 
 def main() -> int:
-    print("chest-xray-classifier — use make train / make evaluate / make serve")
+    print("chest-xray-classifier - use make train / make evaluate / make serve")
     return 0
 
 

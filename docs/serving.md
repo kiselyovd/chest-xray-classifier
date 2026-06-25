@@ -48,4 +48,4 @@ Prometheus metrics including request count, latency histograms, and in-flight co
 
 ## Headers
 
-Every response carries `X-Request-ID` for log correlation — propagate it from your upstream gateway to make traces end-to-end.
+Every response carries `X-Request-ID` for log correlation - propagate it from your upstream gateway to make traces end-to-end.

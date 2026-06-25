@@ -11,13 +11,13 @@
 
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
 
-> **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** — production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
+> **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** - production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
 
 **Russian:** [README.ru.md](README.ru.md) · **Docs:** [kiselyovd.github.io/chest-xray-classifier](https://kiselyovd.github.io/chest-xray-classifier/) · **Model:** [kiselyovd/chest-xray-classifier](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
 ## Dataset
 
-Paul Mooney's [Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) on Kaggle — 5,856 pediatric frontal chest radiographs. The original layout has two classes (`NORMAL`, `PNEUMONIA`); `src/chest_xray_classifier/data/prepare.py` splits `PNEUMONIA` into `bacterial_pneumonia` and `viral_pneumonia` using the `_bacteria_` / `_virus_` substrings in the filenames, producing a three-class target space.
+Paul Mooney's [Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) on Kaggle - 5,856 pediatric frontal chest radiographs. The original layout has two classes (`NORMAL`, `PNEUMONIA`); `src/chest_xray_classifier/data/prepare.py` splits `PNEUMONIA` into `bacterial_pneumonia` and `viral_pneumonia` using the `_bacteria_` / `_virus_` substrings in the filenames, producing a three-class target space.
 
 Resulting distribution (train + val + test): ~1,583 normal / 2,780 bacterial / 1,493 viral.
 
@@ -72,13 +72,13 @@ docker compose up api
 
 ## Full Training Commands
 
-**Main — ConvNeXt-V2-Tiny:**
+**Main - ConvNeXt-V2-Tiny:**
 
 ```bash
 uv run python -m chest_xray_classifier.training.train experiment=sota
 ```
 
-**Baseline — DINOv2 ViT-S linear probe:**
+**Baseline - DINOv2 ViT-S linear probe:**
 
 ```bash
 uv run python -m chest_xray_classifier.training.train \
@@ -159,4 +159,4 @@ If this repo helps your work, please cite:
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).

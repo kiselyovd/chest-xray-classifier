@@ -13,7 +13,7 @@ Production-ready классификатор рентгенограмм груд�
 
 ## Датасет
 
-[Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) от Paul Mooney на Kaggle — 5 856 педиатрических рентгенограмм. В оригинале два класса (`NORMAL`, `PNEUMONIA`); `src/chest_xray_classifier/data/prepare.py` разделяет `PNEUMONIA` на `bacterial_pneumonia` и `viral_pneumonia` по подстрокам `_bacteria_` / `_virus_` в именах файлов — получается 3-классовая задача.
+[Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) от Paul Mooney на Kaggle - 5 856 педиатрических рентгенограмм. В оригинале два класса (`NORMAL`, `PNEUMONIA`); `src/chest_xray_classifier/data/prepare.py` разделяет `PNEUMONIA` на `bacterial_pneumonia` и `viral_pneumonia` по подстрокам `_bacteria_` / `_virus_` в именах файлов - получается 3-классовая задача.
 
 Итоговое распределение (train + val + test): ~1 583 normal / 2 780 bacterial / 1 493 viral.
 
@@ -54,13 +54,13 @@ docker compose up api
 
 ## Полные команды обучения
 
-**Основная — ConvNeXt-V2-Tiny:**
+**Основная - ConvNeXt-V2-Tiny:**
 
 ```bash
 uv run python -m chest_xray_classifier.training.train experiment=sota
 ```
 
-**Baseline — DINOv2 ViT-S linear probe:**
+**Baseline - DINOv2 ViT-S linear probe:**
 
 ```bash
 uv run python -m chest_xray_classifier.training.train \
@@ -123,7 +123,7 @@ tests/              # pytest
 
 Исследовательский и образовательный проект. **Не является медицинским изделием**; запрещается использовать для клинических решений.
 
-Известные ограничения и режимы отказа — в [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
+Известные ограничения и режимы отказа - в [docs/LIMITATIONS.md](docs/LIMITATIONS.md).
 
 ## Цитирование
 
@@ -139,4 +139,4 @@ tests/              # pytest
 
 ## Лицензия
 
-MIT — см. [LICENSE](LICENSE).
+MIT - см. [LICENSE](LICENSE).

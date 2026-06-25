@@ -24,9 +24,9 @@ Our main model is competitive with the best reported numbers while being trained
 
 ## Trade-offs
 
-- **Main vs baseline (ConvNeXt-V2 vs DINOv2 linear probe)**: the baseline is a deliberate "how far do frozen features get us" reference. It's 6pp behind on accuracy but trains in under 10 minutes — useful as a sanity benchmark whenever you re-do the main training.
+- **Main vs baseline (ConvNeXt-V2 vs DINOv2 linear probe)**: the baseline is a deliberate "how far do frozen features get us" reference. It's 6pp behind on accuracy but trains in under 10 minutes - useful as a sanity benchmark whenever you re-do the main training.
 - **ConvNeXt-V2 vs ViT**: ConvNeXt-V2-Tiny is ~28M params vs a comparable ViT-S's ~22M, but the convolutional inductive bias helps on small (~5k-image) datasets like this one. We tested both; ConvNeXt-V2 wins by ~2pp.
-- **Why not an ensemble**: a 2-3 model ensemble reliably adds ~1-2pp on this dataset, but at 2-3x inference cost — not worth it for a portfolio deployment story. If you need to push accuracy past 93%, start there.
+- **Why not an ensemble**: a 2-3 model ensemble reliably adds ~1-2pp on this dataset, but at 2-3x inference cost - not worth it for a portfolio deployment story. If you need to push accuracy past 93%, start there.
 
 ## Reproducing these numbers
 

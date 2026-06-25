@@ -24,8 +24,8 @@ flowchart TD
 
 ## Model choices
 
-- **Main — ConvNeXt-V2-Tiny.** Modern CNN with strong ImageNet-22k pretraining; good accuracy/compute balance for medical imaging. Pre-trained via `transformers.ConvNextV2ForImageClassification` with a 3-label classification head.
-- **Baseline — DINOv2 ViT-S linear probe.** Frozen self-supervised backbone (`facebook/dinov2-small`) with a single trainable linear layer on top of the `[CLS]` embedding. Acts as a methodology sanity check — the main model must clearly beat a frozen generic feature extractor to justify the compute.
+- **Main - ConvNeXt-V2-Tiny.** Modern CNN with strong ImageNet-22k pretraining; good accuracy/compute balance for medical imaging. Pre-trained via `transformers.ConvNextV2ForImageClassification` with a 3-label classification head.
+- **Baseline - DINOv2 ViT-S linear probe.** Frozen self-supervised backbone (`facebook/dinov2-small`) with a single trainable linear layer on top of the `[CLS]` embedding. Acts as a methodology sanity check - the main model must clearly beat a frozen generic feature extractor to justify the compute.
 
 ## Metrics
 
@@ -36,7 +36,7 @@ flowchart TD
 | Confusion matrix | Expose bacterial↔viral confusions (clinically meaningful) |
 | Macro AUROC (OvR) | Threshold-independent separability, averaged over classes |
 
-Accuracy alone is avoided — bacterial_pneumonia dominates the train split.
+Accuracy alone is avoided - bacterial_pneumonia dominates the train split.
 
 ## Key conventions
 

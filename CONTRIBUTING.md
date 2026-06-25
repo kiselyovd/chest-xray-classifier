@@ -1,13 +1,13 @@
 # Contributing
 
 Thanks for considering a contribution to **chest-xray-classifier**. This
-document is the short, opinionated version of the workflow — the CI and
+document is the short, opinionated version of the workflow - the CI and
 pre-commit hooks enforce the rest.
 
 ## Prerequisites
 
 - [`uv`](https://docs.astral.sh/uv/) 0.4 or newer (we use it to manage the
-  virtualenv and lockfile — `pip install`ing things by hand will drift the
+  virtualenv and lockfile - `pip install`ing things by hand will drift the
   environment away from what CI runs).
 - Python **3.13** (the value in `.python-version`; CI also runs the suite on
   3.12 via the matrix).
@@ -32,10 +32,10 @@ uv run pytest
 
 Branches are short, lower-kebab-case, and prefixed with the type of change:
 
-- `feat/<short-slug>` — new capability.
-- `fix/<short-slug>` — bug fix.
-- `docs/<short-slug>` — documentation-only change.
-- `chore/<short-slug>` — tooling, CI, or refactor with no behavioural change.
+- `feat/<short-slug>` - new capability.
+- `fix/<short-slug>` - bug fix.
+- `docs/<short-slug>` - documentation-only change.
+- `chore/<short-slug>` - tooling, CI, or refactor with no behavioural change.
 
 ## Commit style
 
@@ -49,9 +49,9 @@ etc.). AI-assisted changes are still authored by the human on record.
 
 ## Pull-request process
 
-1. CI must be green — the `lint-test` matrix (Python 3.12 + 3.13), the
+1. CI must be green - the `lint-test` matrix (Python 3.12 + 3.13), the
    `docker-build` job, and `actionlint` all need to pass.
-2. Keep the PR focused — one logical change per PR, with a one-line summary
+2. Keep the PR focused - one logical change per PR, with a one-line summary
    and a short *What / Why* body.
 3. If you changed behaviour, update the [`CHANGELOG.md`](CHANGELOG.md) entry
    under `## [Unreleased]`.
@@ -63,7 +63,7 @@ etc.). AI-assisted changes are still authored by the human on record.
 
 - Formatting and linting: `ruff format` + `ruff check` (configured in
   `pyproject.toml`, enforced in CI and pre-commit).
-- Type checking: `mypy src scripts` — all code under `src/` must type-check.
+- Type checking: `mypy src scripts` - all code under `src/` must type-check.
 - Docstrings: `interrogate` (configured in `pyproject.toml`) enforces a
   minimum docstring coverage on public code.
 - Security: `bandit -r src scripts -c pyproject.toml` must pass.

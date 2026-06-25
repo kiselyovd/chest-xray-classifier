@@ -120,9 +120,9 @@ exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedE
 [tool.bandit]
 exclude_dirs = ["tests", "notebooks", "data", "artifacts"]
 # B101: assert_used (pytest convention)
-# B614: pytorch_load — we load only our own trained checkpoints
-# B615: huggingface_unsafe_download — we download only our own / trusted HF repos
-# B701: jinja2_autoescape_false — templates render Markdown/YAML, not HTML
+# B614: pytorch_load - we load only our own trained checkpoints
+# B615: huggingface_unsafe_download - we download only our own / trusted HF repos
+# B701: jinja2_autoescape_false - templates render Markdown/YAML, not HTML
 skips = ["B101", "B614", "B615", "B701"]
 
 [tool.interrogate]

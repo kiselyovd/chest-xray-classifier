@@ -8,7 +8,7 @@ bash scripts/sync_data.sh /path/to/kaggle/chest_xray
 uv run python -m chest_xray_classifier.data.prepare --raw data/raw --out data/processed
 ```
 
-## Main — ConvNeXt-V2-Tiny
+## Main - ConvNeXt-V2-Tiny
 
 ```bash
 uv run python -m chest_xray_classifier.training.train experiment=sota
@@ -16,7 +16,7 @@ uv run python -m chest_xray_classifier.training.train experiment=sota
 
 Expected wall time: ~90 min on an A10/A100. Checkpoint written to `artifacts/checkpoints/best.ckpt`.
 
-## Baseline — DINOv2 linear probe
+## Baseline - DINOv2 linear probe
 
 ```bash
 uv run python -m chest_xray_classifier.training.train \
@@ -31,7 +31,7 @@ uv run python -m chest_xray_classifier.training.train \
 mlflow ui --backend-store-uri ./mlruns
 ```
 
-Browse at http://localhost:5000 — every Hydra run is one MLflow run with the full resolved config logged as params and `train/loss`, `val/loss`, `val/acc`, `val/f1_macro` as metrics.
+Browse at http://localhost:5000 - every Hydra run is one MLflow run with the full resolved config logged as params and `train/loss`, `val/loss`, `val/acc`, `val/f1_macro` as metrics.
 
 ## Hydra overrides (common)
 
