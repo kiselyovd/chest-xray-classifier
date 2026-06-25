@@ -7,9 +7,9 @@
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![HF Model](https://img.shields.io/badge/🤗%20HF%20Hub-model-FFD21E?style=for-the-badge)](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
-Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
+<p align="center"><img src="docs/images/banner.jpg" width="100%" alt="chest-xray-classifier - ConvNeXt-V2-Tiny pneumonia classifier"/></p>
 
-![chest-xray-classifier hero](docs/images/hero.png)
+Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
 
 > **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** — production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
 
@@ -31,6 +31,20 @@ Test-set metrics after full training (fill in with real numbers from `reports/me
 | DINOv2 ViT-S linear probe (baseline) | 85.6% | 84.2% | 94.2% |
 
 Full per-class report and confusion matrix live in `reports/metrics.json` after running evaluation.
+
+## Visualizations
+
+<p align="center"><img src="docs/images/confusion_matrix.png" width="80%" alt="Test-set confusion matrix"/></p>
+
+Confusion matrix on the held-out test split (n=624) - ConvNeXt-V2-Tiny at 91.3% accuracy.
+
+<p align="center"><img src="docs/images/roc_curves.png" width="80%" alt="Per-class ROC curves"/></p>
+
+One-vs-rest ROC curves per class - macro AUROC 97.5%.
+
+<p align="center"><img src="docs/images/sample_predictions.png" width="100%" alt="Sample predictions on test radiographs"/></p>
+
+Sample predictions on test radiographs with predicted class and confidence.
 
 ## Quick Start
 
