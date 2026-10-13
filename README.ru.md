@@ -1,5 +1,7 @@
 # chest-xray-classifier
 
+[Интерактивная витрина проекта](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
+
 [![CI](https://img.shields.io/github/actions/workflow/status/kiselyovd/chest-xray-classifier/ci.yml?branch=main&label=CI&style=for-the-badge&logo=github)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
 [![Docs](https://img.shields.io/badge/docs-mkdocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://kiselyovd.github.io/chest-xray-classifier/)
 [![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kiselyovd/chest-xray-classifier/badges/coverage.json&style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)

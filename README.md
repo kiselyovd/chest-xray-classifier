@@ -1,162 +1,46 @@
-# chest-xray-classifier
+# Chest X-Ray Classification
 
-[![CI](https://img.shields.io/github/actions/workflow/status/kiselyovd/chest-xray-classifier/ci.yml?branch=main&label=CI&style=for-the-badge&logo=github)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
-[![Docs](https://img.shields.io/badge/docs-mkdocs-526CFE?style=for-the-badge&logo=materialformkdocs&logoColor=white)](https://kiselyovd.github.io/chest-xray-classifier/)
-[![Coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/kiselyovd/chest-xray-classifier/badges/coverage.json&style=for-the-badge&logo=pytest&logoColor=white)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge&logo=opensourceinitiative&logoColor=white)](LICENSE)
-[![Python 3.12+](https://img.shields.io/badge/Python-3.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![HF Model](https://img.shields.io/badge/🤗%20HF%20Hub-model-FFD21E?style=for-the-badge)](https://huggingface.co/kiselyovd/chest-xray-classifier)
+A research classifier for normal, bacterial-pneumonia, and viral-pneumonia chest radiographs. ConvNeXt-V2-Tiny is the main model; a DINOv2 linear probe provides the comparison.
 
-<p align="center"><img src="docs/images/banner.jpg" width="100%" alt="chest-xray-classifier - ConvNeXt-V2-Tiny pneumonia classifier"/></p>
+[![CI](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-MkDocs-blue)](https://kiselyovd.github.io/chest-xray-classifier/) [![Model](https://img.shields.io/badge/Hugging_Face-model-yellow)](https://huggingface.co/kiselyovd/chest-xray-classifier) [![MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 
-Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric chest radiographs.
+[![Interactive comparison of stored test reports](docs/images/showcase.png)](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
 
-> **Part of the [kiselyovd ML portfolio](https://github.com/kiselyovd#ml-portfolio)** - production-grade ML projects sharing one [cookiecutter template](https://github.com/kiselyovd/ml-project-template).
+**[Explore the classification errors](https://kiselyovd.github.io/chest-xray-classifier/showcase/)** — change the model, read counts or row percentages, and inspect a true/predicted-class cell. The UI uses committed JSON reports; the labelled image gallery is separate from the test results.
 
-**Russian:** [README.ru.md](README.ru.md) · **Docs:** [kiselyovd.github.io/chest-xray-classifier](https://kiselyovd.github.io/chest-xray-classifier/) · **Model:** [kiselyovd/chest-xray-classifier](https://huggingface.co/kiselyovd/chest-xray-classifier)
+## Reported results
 
-## Dataset
+Stored evaluation on 624 pediatric radiographs, ordered as bacterial / normal / viral:
 
-Paul Mooney's [Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) on Kaggle - 5,856 pediatric frontal chest radiographs. The original layout has two classes (`NORMAL`, `PNEUMONIA`); `src/chest_xray_classifier/data/prepare.py` splits `PNEUMONIA` into `bacterial_pneumonia` and `viral_pneumonia` using the `_bacteria_` / `_virus_` substrings in the filenames, producing a three-class target space.
+| Model | Accuracy | Macro F1 | Macro AUROC (OvR) | Classification errors |
+|---|---|---|---|---|
+| ConvNeXt-V2-Tiny | 91.3% | 90.3% | 97.5% | 54 |
+| DINOv2 linear probe | 85.6% | 84.2% | 94.2% | 90 |
 
-Resulting distribution (train + val + test): ~1,583 normal / 2,780 bacterial / 1,493 viral.
+[Main report](reports/metrics.json) · [Baseline report](reports/metrics_baseline.json) · [Protocol and limitations](docs/project-guide.md)
 
-## Results
-
-Test-set metrics after full training (fill in with real numbers from `reports/metrics.json`):
-
-| Model | Accuracy | Macro F1 | Macro AUROC (OvR) |
-|---|---|---|---|
-| **ConvNeXt-V2-Tiny** (main) | **91.3%** | **90.3%** | **97.5%** |
-| DINOv2 ViT-S linear probe (baseline) | 85.6% | 84.2% | 94.2% |
-
-Full per-class report and confusion matrix live in `reports/metrics.json` after running evaluation.
-
-## Visualizations
-
-<p align="center"><img src="docs/images/confusion_matrix.png" width="80%" alt="Test-set confusion matrix"/></p>
-
-Confusion matrix on the held-out test split (n=624) - ConvNeXt-V2-Tiny at 91.3% accuracy.
-
-<p align="center"><img src="docs/images/roc_curves.png" width="80%" alt="Per-class ROC curves"/></p>
-
-One-vs-rest ROC curves per class - macro AUROC 97.5%.
-
-<p align="center"><img src="docs/images/sample_predictions.png" width="100%" alt="Sample predictions on test radiographs"/></p>
-
-Sample predictions on test radiographs with predicted class and confidence.
-
-## Quick Start
-
-```bash
-# 1. Install
-uv sync --all-groups
-
-# 2. Sync Kaggle dataset into data/raw/ (once)
-bash scripts/sync_data.sh /path/to/chest_xray
-
-# 3. Split into 3 classes
-uv run python -m chest_xray_classifier.data.prepare --raw data/raw --out data/processed
-
-# 4. Train (main model on GPU)
-make train
-
-# 5. Evaluate on test split
-make evaluate
-
-# 6. Serve the model locally
-make serve
-# or
-docker compose up api
-```
-
-## Full Training Commands
-
-**Main - ConvNeXt-V2-Tiny:**
-
-```bash
-uv run python -m chest_xray_classifier.training.train experiment=sota
-```
-
-**Baseline - DINOv2 ViT-S linear probe:**
-
-```bash
-uv run python -m chest_xray_classifier.training.train \
-  model=baseline \
-  trainer.max_epochs=20 \
-  trainer.output_dir=artifacts/baseline
-```
-
-Every run is tracked with MLflow under `./mlruns/`; launch `mlflow ui --backend-store-uri ./mlruns` to inspect.
-
-## Inference
+## Try the published model
 
 ```python
-from huggingface_hub import snapshot_download
+from urllib.request import urlopen
+from PIL import Image
+from transformers import pipeline
 
-from chest_xray_classifier.inference.predict import load_model, predict
-
-ckpt_dir = snapshot_download("kiselyovd/chest-xray-classifier")
-model = load_model(f"{ckpt_dir}/best.ckpt")
-result = predict(model, "path/to/radiograph.jpeg")
-# {"pred": 1, "probs": [0.02, 0.95, 0.03]}
+classifier = pipeline("image-classification", model="kiselyovd/chest-xray-classifier")
+image = Image.open(urlopen("https://huggingface.co/kiselyovd/chest-xray-classifier/resolve/main/samples/normal.png")).convert("RGB")
+print(classifier(image))
 ```
 
-Class index order: `("bacterial_pneumonia", "normal", "viral_pneumonia")`.
+The model card contains the direct processor/model API and its class-index order. [Training and local serving commands](docs/project-guide.md#quick-start) · [Русский README](README.ru.md)
 
-## Serving
+## Documentation
 
-```bash
-docker compose up api
-curl -X POST -F "file=@test.jpeg" http://localhost:8000/predict
-```
+- [Interactive report explorer](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
+- [Project guide](docs/project-guide.md): dataset, full recipes, inference, and Docker.
+- [Architecture](docs/architecture.md) · [Training](docs/training.md) · [Serving](docs/serving.md)
 
-Endpoints:
+## Intended use and terms
 
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/health` | Liveness probe |
-| `POST` | `/predict` | Multipart image → JSON prediction |
-| `GET` | `/metrics` | Prometheus metrics |
+Research and education only. The model has not been clinically validated and is not a medical device. The benchmark uses a limited pediatric dataset.
 
-Every response carries an `X-Request-ID` header for log correlation.
-
-## Project Structure
-
-```
-src/chest_xray_classifier/
-├── data/           # ImageDataModule, ImageDataset, prepare.py (3-class split)
-├── models/         # factory.py, lightning_module.py, baseline_dinov2.py
-├── training/       # Hydra entrypoint
-├── evaluation/     # classification_report + confusion + macro AUROC
-├── inference/      # load_model + predict
-├── serving/        # FastAPI app
-└── utils/          # logging, seeding, HF Hub helpers
-configs/            # Hydra configs (data / model / trainer / experiment)
-docs/               # MkDocs site sources
-tests/              # pytest suite
-```
-
-## Intended Use
-
-Research and educational only. **Not** a medical device; do not use for clinical decisions.
-
-See [LIMITATIONS.md](docs/LIMITATIONS.md) for known failure modes and dataset-bias analysis.
-
-## Citation
-
-If this repo helps your work, please cite:
-
-```bibtex
-@software{kiselyov2026chestxray,
-  author  = {Kiselyov, Daniil},
-  title   = {chest-xray-classifier: ConvNeXt-V2-Tiny pneumonia classifier},
-  year    = {2026},
-  url     = {https://github.com/kiselyovd/chest-xray-classifier},
-  version = {v0.1.0}
-}
-```
-
-## License
-
-MIT - see [LICENSE](LICENSE).
+Repository code is [MIT](LICENSE); dataset, pretrained models, and model artifacts retain their respective terms. See the [model card](https://huggingface.co/kiselyovd/chest-xray-classifier).

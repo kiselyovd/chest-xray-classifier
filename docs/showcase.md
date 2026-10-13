@@ -1,8 +1,8 @@
-# Where the chest X-ray classifiers disagree
+# Inside the chest X-ray test reports
 
 Explore the stored test reports for ConvNeXt-V2 and the DINOv2 baseline. Choose a model, inspect a true class, and select a matrix cell to see what the count means.
 
-<section class="sc-explorer" data-showcase="matrix" data-owner="kiselyovd" aria-label="Where the chest X-ray classifiers disagree interactive showcase">
+<section class="sc-explorer" data-showcase="matrix" data-owner="kiselyovd" aria-label="Inside the chest X-ray test reports interactive showcase">
   <div class="sc-controls"></div>
   <div class="sc-workspace">
     <figure class="sc-stage"><img src="../images/confusion_matrix.png" alt="Published main-model confusion matrix"><figcaption>The main model's stored evaluation report.</figcaption></figure>
@@ -24,7 +24,6 @@ This is a research and educational benchmark on pediatric chest radiographs. It 
 
 The explorer uses published artifacts from [kiselyovd/chest-xray-classifier](https://github.com/kiselyovd/chest-xray-classifier). [Inspect the pinned source](https://github.com/kiselyovd/chest-xray-classifier/blob/e0badb62a91f48acb0cf37544605e492f23864d8/reports/metrics.json) and the [structured showcase data](assets/showcase/data.json).
 
-UI state stays in the current page. Detailed diagnostic events can be enabled with `?debug=1`; they contain selected IDs and modes, not sample content.
 
 ## See also
 
