@@ -1,5 +1,7 @@
 # chest-xray-classifier
 
+[Open the interactive showcase](showcase.md)
+
 ![chest-xray-classifier - ConvNeXt-V2-Tiny pneumonia classifier](images/banner.jpg)
 
 Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs.

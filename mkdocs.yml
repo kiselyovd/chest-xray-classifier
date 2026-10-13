@@ -58,6 +58,7 @@ markdown_extensions:
   - tables
 nav:
   - Home: index.md
+  - Showcase: showcase.md
   - Architecture: architecture.md
   - Training: training.md
   - Serving: serving.md
@@ -65,3 +66,9 @@ nav:
   - Reproducibility: REPRODUCIBILITY.md
   - Limitations: LIMITATIONS.md
   - API reference: api.md
+
+extra_css:
+  - assets/showcase/explorer.css
+extra_javascript:
+  - path: assets/showcase/explorer.js
+    type: module
