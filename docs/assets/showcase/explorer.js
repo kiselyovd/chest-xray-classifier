@@ -18,12 +18,14 @@ function makeMatrix(model, state, choose) {
     rowHeading.scope='row';tr.append(rowHeading);
     row.forEach((count,columnIndex)=>{
       const td=element('td');
-      const button=element('button','',state.rates?`${(count/total*100).toFixed(1)}%`:String(count));
+      const primary=state.rates?`${(count/total*100).toFixed(1)}%`:String(count);
+      const secondary=state.rates?`${count} of ${total}`:`${(count/total*100).toFixed(1)}% of row`;
+      const button=element('button','',primary+' ');
       button.type='button';
       button.style.setProperty('--cell-strength',`${12+count/total*30}%`);
       button.setAttribute('aria-pressed',String(state.row===rowIndex&&state.column===columnIndex));
-      button.setAttribute('aria-label',`${names[model.classes[rowIndex]]} predicted as ${names[model.classes[columnIndex]]}: ${count} of ${total}`);
-      button.append(element('small','',state.rates?`${count} of ${total}`:`${(count/total*100).toFixed(1)}% of row`));
+      button.setAttribute('aria-label',`${primary} ${secondary}. ${names[model.classes[rowIndex]]} predicted as ${names[model.classes[columnIndex]]}: ${count} of ${total}`);
+      button.append(element('small','',secondary));
       button.addEventListener('click',()=>choose(rowIndex,columnIndex));
       td.append(button);tr.append(td);
     });

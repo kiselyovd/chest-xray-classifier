@@ -61,7 +61,7 @@ class ShowcaseTests(unittest.TestCase):
                 any(
                     tag == "script"
                     and a.get("type") == "module"
-                    and a.get("src", "").endswith("showcase/explorer.js")
+                    and urlsplit(a.get("src", "")).path.endswith("showcase/explorer.js")
                     for tag, a in nodes
                 )
             )
