@@ -4,7 +4,7 @@ A research classifier for normal, bacterial-pneumonia, and viral-pneumonia chest
 
 [![CI](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-MkDocs-blue)](https://kiselyovd.github.io/chest-xray-classifier/) [![Model](https://img.shields.io/badge/Hugging_Face-model-yellow)](https://huggingface.co/kiselyovd/chest-xray-classifier) [![MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 
-[![Correct predictions and errors from the native replay](docs/images/social-preview.png)](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
+[![Correct predictions and errors from the native replay](docs/images/sample_predictions.png)](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
 
 **[Explore the classification errors](https://kiselyovd.github.io/chest-xray-classifier/showcase/)** — change the model, read counts or row percentages, and inspect a true/predicted-class cell. The UI uses committed JSON reports; the labelled image gallery is separate from the test results.
 

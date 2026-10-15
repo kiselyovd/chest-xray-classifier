@@ -20,6 +20,14 @@ The images in the gallery are committed smoke examples with dataset labels. They
 
 This is a research and educational benchmark on pediatric chest radiographs. It is not clinical validation. [Evaluation protocol](REPRODUCIBILITY.md) and [limitations](LIMITATIONS.md).
 
+## Inspect actual correct predictions and errors
+
+![Six radiographs from the native replay, showing both correct predictions and mistakes with true and predicted classes](images/sample_predictions.png)
+
+These are actual outputs from the pinned native model on the original 624-image test fold. The selection includes the median-score correct example and highest-score error for each true class. It is an illustration of model behavior, not a second benchmark or a balanced estimate of error frequency. Scores are uncalibrated softmax values.
+
+[Selection and source identities](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/provenance/figure-selection.json) · [Complete replay and limitations](EVALUATION.md).
+
 ## Sources and reproduction
 
 The explorer uses published artifacts from [kiselyovd/chest-xray-classifier](https://github.com/kiselyovd/chest-xray-classifier). [Inspect the pinned source](https://github.com/kiselyovd/chest-xray-classifier/blob/e0badb62a91f48acb0cf37544605e492f23864d8/reports/metrics.json) and the [structured showcase data](assets/showcase/data.json).

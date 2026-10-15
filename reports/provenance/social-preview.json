@@ -1,20 +1,55 @@
 {
+  "schema_version": 2,
   "asset": "docs/images/social-preview.png",
-  "sha256": "ee9eaf87177aaf461a457c5271df0b2f5c57e96d0a3ac956c54dd71605d9c84e",
   "width": 1280,
   "height": 640,
-  "bytes": 224746,
-  "kind": "project evidence composition; no generated model output",
-  "note": "Kermany / Zhang / Goldbaum, CC BY 4.0; research examples, not medical advice",
-  "sources": [
+  "kind": "identity preview composed from a reviewed actual project figure",
+  "source": {
+    "repository": "kiselyovd/chest-xray-classifier",
+    "revision": "e15025624f3f03daa532d4c7068745cfc7ec63a1",
+    "path": "docs/images/sample_predictions.png",
+    "sha256": "bc5602b9df0774ae7ecbc32a5f1cf1137dcf7610b44c31b5ab5d0cf133e1594c"
+  },
+  "source_figure_provenance": {
+    "asset": "docs/images/social-preview.png",
+    "sha256": "ee9eaf87177aaf461a457c5271df0b2f5c57e96d0a3ac956c54dd71605d9c84e",
+    "width": 1280,
+    "height": 640,
+    "bytes": 224746,
+    "kind": "project evidence composition; no generated model output",
+    "note": "Kermany / Zhang / Goldbaum, CC BY 4.0; research examples, not medical advice",
+    "sources": [
+      {
+        "path": "docs\\images\\sample_predictions.png",
+        "sha256": "bc5602b9df0774ae7ecbc32a5f1cf1137dcf7610b44c31b5ab5d0cf133e1594c"
+      },
+      {
+        "path": "reports\\provenance\\figure-selection.json",
+        "sha256": "53bb268535e37a808a369317dc7237002b11e19ead5df9f506f9bbc9c01fb5e4"
+      }
+    ],
+    "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+  },
+  "renderer": {
+    "repository": "kiselyovd/kiselyovd.github.io",
+    "revision": "7efec9a44382677b58cb657843446da104d8bf57",
+    "path": "automation/render_social_previews.py",
+    "sha256": "381021e708028e2bf42f0f97ab32d66df71747fdfced5fda3922bc06f805488b"
+  },
+  "outputs": [
     {
-      "path": "docs\\images\\sample_predictions.png",
-      "sha256": "bc5602b9df0774ae7ecbc32a5f1cf1137dcf7610b44c31b5ab5d0cf133e1594c"
+      "project": "chest-xray-classifier",
+      "theme": "dark",
+      "path": "docs/images/social-preview.png",
+      "sha256": "799dd76999e8ff7c77dbc3c6ac863eb1e8e80d28bc47b413dc76f7737a00ba0c",
+      "bytes": 183526
     },
     {
-      "path": "reports\\provenance\\figure-selection.json",
-      "sha256": "53bb268535e37a808a369317dc7237002b11e19ead5df9f506f9bbc9c01fb5e4"
+      "project": "chest-xray-classifier",
+      "theme": "light",
+      "path": "docs/images/social-preview-light.png",
+      "sha256": "b12265bda9fbdab17e4d208d34911b0c89a1b5467336f30b6fe9a65fed62d522",
+      "bytes": 184480
     }
-  ],
-  "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+  ]
 }
