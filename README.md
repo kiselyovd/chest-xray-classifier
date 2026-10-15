@@ -4,9 +4,15 @@ A research classifier for normal, bacterial-pneumonia, and viral-pneumonia chest
 
 [![CI](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml/badge.svg)](https://github.com/kiselyovd/chest-xray-classifier/actions/workflows/ci.yml) [![Docs](https://img.shields.io/badge/docs-MkDocs-blue)](https://kiselyovd.github.io/chest-xray-classifier/) [![Model](https://img.shields.io/badge/Hugging_Face-model-yellow)](https://huggingface.co/kiselyovd/chest-xray-classifier) [![MIT](https://img.shields.io/badge/code-MIT-blue)](LICENSE)
 
-[![Interactive comparison of stored test reports](docs/images/showcase.png)](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
+[![Correct predictions and errors from the native replay](docs/images/social-preview.png)](https://kiselyovd.github.io/chest-xray-classifier/showcase/)
 
 **[Explore the classification errors](https://kiselyovd.github.io/chest-xray-classifier/showcase/)** — change the model, read counts or row percentages, and inspect a true/predicted-class cell. The UI uses committed JSON reports; the labelled image gallery is separate from the test results.
+
+<!-- ARTIFACT-OVERVIEW:START -->
+Accuracy **91.35%** · Macro F1 **90.30%**. [Evaluation and scope](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/replay-native-2026-10-15.json).
+
+**Evidence:** Replayed on the original 624-image test fold. The complete confusion matrix and metrics reproduce the stored main report. Historical checkpoint training membership is unrecorded; the baseline remains a stored report.
+<!-- ARTIFACT-OVERVIEW:END -->
 
 ## Results
 

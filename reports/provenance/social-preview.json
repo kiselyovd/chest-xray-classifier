@@ -1,0 +1,20 @@
+{
+  "asset": "docs/images/social-preview.png",
+  "sha256": "ee9eaf87177aaf461a457c5271df0b2f5c57e96d0a3ac956c54dd71605d9c84e",
+  "width": 1280,
+  "height": 640,
+  "bytes": 224746,
+  "kind": "project evidence composition; no generated model output",
+  "note": "Kermany / Zhang / Goldbaum, CC BY 4.0; research examples, not medical advice",
+  "sources": [
+    {
+      "path": "docs\\images\\sample_predictions.png",
+      "sha256": "bc5602b9df0774ae7ecbc32a5f1cf1137dcf7610b44c31b5ab5d0cf133e1594c"
+    },
+    {
+      "path": "reports\\provenance\\figure-selection.json",
+      "sha256": "53bb268535e37a808a369317dc7237002b11e19ead5df9f506f9bbc9c01fb5e4"
+    }
+  ],
+  "renderer": "portfolio-integrity-2026-10-15/render_previews.py"
+}
