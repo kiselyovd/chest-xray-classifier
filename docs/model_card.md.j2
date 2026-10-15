@@ -1,78 +1,62 @@
 ---
 license: mit
-library_name: {{ library_name }}
-
-pipeline_tag: {{ pipeline_tag }}
-
-{% if base_model %}base_model: {{ base_model }}
-{% endif %}tags:
-{% for tag in tags %}  - {{ tag }}
-{% endfor %}datasets:
-{% for ds in datasets %}  - {{ ds }}
-{% endfor %}
-metrics:
-  - accuracy
-  - f1
-
-{% if widget_examples %}widget:
-{% for ex in widget_examples %}  - src: {{ ex.src }}
-    example_title: {{ ex.example_title }}
-{% endfor %}{% endif %}
-
-model-index:
-  - name: {{ repo_id }}
-    results:
-{% for task_result in metric_results %}      - task:
-          type: {{ task_result.task_type }}
-        dataset:
-          type: {{ task_result.dataset_type }}
-          name: {{ task_result.dataset_name }}
-        metrics:
-{% for m in task_result.metrics %}          - type: {{ m.type }}
-            value: {{ m.value }}
-{% endfor %}{% endfor %}
+library_name: transformers
+pipeline_tag: image-classification
+base_model: facebook/convnextv2-tiny-22k-224
+tags:
+  - medical-imaging
+  - chest-xray
+  - pytorch
 ---
 
-# chest-xray-classifier
+# Chest X-Ray Classification
 
-{{ model_description }}
+ConvNeXt-V2-Tiny classifies pediatric radiographs as bacterial pneumonia, normal or viral pneumonia. [Explore the classification errors](https://kiselyovd.github.io/chest-xray-classifier/showcase/).
 
-## Metrics
+## Results
 
-{{ metrics_table }}
+{{ artifact_contract }}
 
-## Usage
+[Evaluation protocol and numerical parity](https://github.com/kiselyovd/chest-xray-classifier/blob/main/docs/EVALUATION.md). The DINOv2 baseline remains a separately stored report; its checkpoint is absent from this snapshot.
 
+## Run the published weights
+
+This explicit torchvision recipe preserves the exact training/evaluation geometry and uses native safetensors weights.
 
 ```python
-from transformers import AutoImageProcessor, AutoModelForImageClassification
 import torch
 from PIL import Image
+from torchvision.transforms import v2
+from transformers import AutoModelForImageClassification
 
-processor = AutoImageProcessor.from_pretrained("{{ repo_id }}")
-model = AutoModelForImageClassification.from_pretrained("{{ repo_id }}")
-
-image = Image.open("your_image.png")
-inputs = processor(images=image, return_tensors="pt")
-with torch.no_grad():
-    logits = model(**inputs).logits
-predicted_class = logits.argmax(-1).item()
-print(model.config.id2label[predicted_class])
+REPO = "{{ repo_id }}"
+REVISION = "{{ artifact_revision }}"
+model = AutoModelForImageClassification.from_pretrained(
+    REPO, revision=REVISION, use_safetensors=True, trust_remote_code=False
+).eval()
+transform = v2.Compose([
+    v2.ToImage(), v2.Resize(255, antialias=True), v2.CenterCrop(224),
+    v2.ToDtype(torch.float32, scale=True),
+    v2.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
+])
+image = Image.open("chest-xray.jpeg").convert("RGB")
+with torch.inference_mode():
+    scores = model(pixel_values=transform(image).unsqueeze(0)).logits.softmax(-1)[0]
+print([(model.config.id2label[i], float(scores[i])) for i in scores.argsort(descending=True).tolist()])
 ```
 
+Class order is 0 bacterial, 1 normal, 2 viral. Scores are uncalibrated model outputs. The corrected native processor includes a small MIT-licensed adapter that preserves torchvision's rounded center-crop anchor. Loading that adapter with `AutoImageProcessor` requires reviewing the pinned module and explicitly setting `trust_remote_code=True`; the standalone recipe above uses standard torchvision code.
 
-## Training Data
+## Data and replay
 
-{% if hf_dataset %}Trained on [{{ dataset_name or hf_dataset }}](https://huggingface.co/datasets/{{ hf_dataset }}).
-{% else %}Training dataset details not specified.
-{% endif %}
+The original [Kaggle dataset](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) contains 5856 pediatric radiographs. The repository derives bacterial/viral subtypes from the original pneumonia filenames. Replaying all 624 original test images reproduces the complete stored main confusion matrix and its metrics. A saved probability/target archive allows independent recalculation.
 
-## Source Code
+[Source receipt](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/provenance/chest-source.json) · [Test-file manifest](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/provenance/chest-test-manifest.json) · [Complete processor comparison](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/provenance/processor-full-test-parity.json).
 
-[GitHub Repository]({{ github_url }})
+Historical training membership and patient-level independence are unrecorded. This is research on a limited pediatric cohort; clinical validation has not been performed.
 
-## Intended Use
+## Component terms and citation
 
-This model is provided for research and educational purposes. The authors make no warranties about its suitability for any particular application. Users are responsible for evaluating the model's fitness for their use case, including fairness, safety, and compliance with applicable regulations.
+Project code and the adapter are MIT. The source data are CC BY 4.0, attributed to Daniel Kermany, Kang Zhang and Michael Goldbaum; original dataset DOI 10.17632/rscbjbr9sj.2. ConvNeXt-V2 and DINOv2 base cards declare Apache 2.0. The fine-tuned artifact's MIT declaration does not replace those upstream notices or dataset attribution.
 
-> **Note:** This model card was generated from the [ml-project-template](https://github.com/kiselyovd/ml-project-template) scaffold.
+[Component details](https://github.com/kiselyovd/chest-xray-classifier/blob/main/docs/LICENSES.md) · [Original data](https://data.mendeley.com/datasets/rscbjbr9sj/2) · [CITATION.cff](https://github.com/kiselyovd/chest-xray-classifier/blob/main/CITATION.cff).

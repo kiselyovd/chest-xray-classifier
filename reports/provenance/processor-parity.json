@@ -1,0 +1,90 @@
+{
+  "repo_id": "kiselyovd/chest-xray-classifier",
+  "weights_revision": "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89",
+  "weights_sha256": "d3c0b8fba6caa340cfbabf06119c6a9988b018c277a72d9565e0f62acda2a7d0",
+  "processor_source": "repository hf_processor.py; torchvision center_crop",
+  "cases": "all committed sample images; numerical parity, not a test-set evaluation",
+  "torch": "2.8.0+cpu",
+  "results": [
+    {
+      "image": "data/sample/bacterial_pneumonia/person1405_bacteria_3571.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 4.76837158203125e-07,
+      "probability_max_abs_error": 2.086162567138672e-07,
+      "reference_top1": 2,
+      "native_top1": 2
+    },
+    {
+      "image": "data/sample/bacterial_pneumonia/person1506_bacteria_3933.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 7.152557373046875e-07,
+      "probability_max_abs_error": 1.9371509552001953e-07,
+      "reference_top1": 2,
+      "native_top1": 2
+    },
+    {
+      "image": "data/sample/bacterial_pneumonia/person1816_bacteria_4674.jpeg",
+      "tensor_max_abs_error": 2.384185791015625e-07,
+      "logits_max_abs_error": 2.384185791015625e-07,
+      "probability_max_abs_error": 0.0,
+      "reference_top1": 2,
+      "native_top1": 2
+    },
+    {
+      "image": "data/sample/normal/IM-0213-0001.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 2.6226043701171875e-06,
+      "probability_max_abs_error": 6.556510925292969e-07,
+      "reference_top1": 1,
+      "native_top1": 1
+    },
+    {
+      "image": "data/sample/normal/IM-0431-0001.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 2.5033950805664062e-06,
+      "probability_max_abs_error": 7.152557373046875e-07,
+      "reference_top1": 1,
+      "native_top1": 1
+    },
+    {
+      "image": "data/sample/normal/IM-0656-0001.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 9.5367431640625e-07,
+      "probability_max_abs_error": 1.1920928955078125e-07,
+      "reference_top1": 1,
+      "native_top1": 1
+    },
+    {
+      "image": "data/sample/normal/IM-0717-0001.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 1.7881393432617188e-06,
+      "probability_max_abs_error": 4.3213367462158203e-07,
+      "reference_top1": 0,
+      "native_top1": 0
+    },
+    {
+      "image": "data/sample/normal/NORMAL2-IM-1337-0001.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 1.7285346984863281e-06,
+      "probability_max_abs_error": 6.556510925292969e-07,
+      "reference_top1": 1,
+      "native_top1": 1
+    },
+    {
+      "image": "data/sample/viral_pneumonia/person116_virus_221.jpeg",
+      "tensor_max_abs_error": 4.76837158203125e-07,
+      "logits_max_abs_error": 2.384185791015625e-07,
+      "probability_max_abs_error": 4.470348358154297e-08,
+      "reference_top1": 0,
+      "native_top1": 0
+    },
+    {
+      "image": "data/sample/viral_pneumonia/person724_virus_1343.jpeg",
+      "tensor_max_abs_error": 2.384185791015625e-07,
+      "logits_max_abs_error": 4.76837158203125e-07,
+      "probability_max_abs_error": 5.21540641784668e-08,
+      "reference_top1": 0,
+      "native_top1": 0
+    }
+  ]
+}

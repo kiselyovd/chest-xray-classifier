@@ -63,6 +63,8 @@ nav:
   - Architecture: architecture.md
   - Training: training.md
   - Serving: serving.md
+  - Evaluation contract: EVALUATION.md
+  - Component licenses: LICENSES.md
   - Benchmarks: BENCHMARKS.md
   - Reproducibility: REPRODUCIBILITY.md
   - Limitations: LIMITATIONS.md

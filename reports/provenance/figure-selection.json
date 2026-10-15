@@ -1,0 +1,39 @@
+{
+  "source_arrays": {
+    "file": "replay-native-2026-10-15.npz",
+    "sha256": "8289a21bac01d8a6c487cfdcf6cd21c33468d6b8f01fe7e049fa7d6e057d9893"
+  },
+  "selection_rule": "median-score correct and highest-score incorrect case per class, when available",
+  "cases": [
+    {
+      "image": "bacterial_pneumonia/person150_bacteria_716.jpeg",
+      "target": 0,
+      "prediction": 0
+    },
+    {
+      "image": "bacterial_pneumonia/person154_bacteria_728.jpeg",
+      "target": 0,
+      "prediction": 1
+    },
+    {
+      "image": "normal/NORMAL2-IM-0381-0001.jpeg",
+      "target": 1,
+      "prediction": 1
+    },
+    {
+      "image": "normal/NORMAL2-IM-0221-0001.jpeg",
+      "target": 1,
+      "prediction": 2
+    },
+    {
+      "image": "viral_pneumonia/person24_virus_58.jpeg",
+      "target": 2,
+      "prediction": 2
+    },
+    {
+      "image": "viral_pneumonia/person8_virus_27.jpeg",
+      "target": 2,
+      "prediction": 0
+    }
+  ]
+}

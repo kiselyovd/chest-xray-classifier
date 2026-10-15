@@ -29,7 +29,9 @@ from sklearn.metrics import (
     roc_auc_score,
     roc_curve,
 )
-from transformers import AutoImageProcessor, AutoModelForImageClassification
+from transformers import AutoModelForImageClassification
+
+from chest_xray_classifier.data.transforms import build_hf_processor
 
 # HF Auto* factories return dynamic concrete classes that the type checker
 # cannot resolve precisely; alias them to Any for annotation purposes.
@@ -41,13 +43,14 @@ TEST_DIR = REPO_ROOT / "data" / "processed" / "test"
 REPORTS_DIR = REPO_ROOT / "reports"
 METRICS_PATH = REPORTS_DIR / "metrics.json"
 MODEL_ID = "kiselyovd/chest-xray-classifier"
+MODEL_REVISION = "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89"
 
 # Authoritative class order (sorted / alphabetical), matches model id2label.
 CLASS_NAMES = ["bacterial_pneumonia", "normal", "viral_pneumonia"]
 DISPLAY_NAMES = ["Bacterial\npneumonia", "Normal", "Viral\npneumonia"]
 IMAGE_EXTS = {".jpeg", ".jpg", ".png"}
 BATCH_SIZE = 32
-TOLERANCE = 0.02  # accuracy / macro-F1 may differ slightly from reference run
+TOLERANCE = 1e-5  # ROC ranking tolerance for numerically equivalent processor paths
 
 plt.style.use("seaborn-v0_8-whitegrid")
 plt.rcParams.update(
@@ -63,8 +66,10 @@ plt.rcParams.update(
 
 def _load_model() -> tuple[HFModel, HFProcessor]:
     """Load the HF-native model + processor (config id2label is authoritative)."""
-    processor = AutoImageProcessor.from_pretrained(MODEL_ID)
-    model = AutoModelForImageClassification.from_pretrained(MODEL_ID)
+    processor = build_hf_processor()
+    model = AutoModelForImageClassification.from_pretrained(
+        MODEL_ID, revision=MODEL_REVISION, use_safetensors=True, trust_remote_code=False
+    )
     model.train(False)
     return model, processor
 
@@ -123,7 +128,14 @@ def _cross_check(y_true: np.ndarray, probs: np.ndarray) -> None:
         flush=True,
     )
 
-    if abs(acc - ref_acc) > TOLERANCE or abs(macro_f1 - ref_f1) > TOLERANCE:
+    cm = np.zeros((3, 3), dtype=int)
+    np.add.at(cm, (y_true, y_pred), 1)
+    if (
+        cm.tolist() != reference["confusion_matrix"]
+        or abs(acc - ref_acc) > 1e-12
+        or abs(macro_f1 - ref_f1) > 1e-12
+        or abs(auroc - ref_auroc) > TOLERANCE
+    ):
         raise SystemExit(
             "Computed metrics diverge from reports/metrics.json beyond tolerance; "
             "refusing to render charts."
@@ -204,23 +216,22 @@ def _select_sample_indices(
     probs: np.ndarray,
     per_class: int = 2,
 ) -> list[int]:
-    """Pick representative, correctly-classified test examples per class.
-
-    For each class we take the ``per_class`` highest-confidence correct
-    predictions. This gives an honest, typical view of the model on real
-    test radiographs (it is not cherry-picking failures or perfect-only
-    cases, just confidently-correct calls that reflect the 91%-accuracy
-    operating point).
-    """
+    """Select a median-score correct case and high-score errors for each class."""
+    if per_class < 1:
+        raise ValueError("per_class must be positive")
     y_pred = probs.argmax(axis=1)
     correct = y_pred == y_true
     chosen: list[int] = []
     for idx in range(len(CLASS_NAMES)):
-        mask = (y_true == idx) & correct
-        candidates = np.where(mask)[0]
-        confidence = probs[candidates, idx]
-        order = candidates[np.argsort(-confidence)]
-        chosen.extend(order[:per_class].tolist())
+        candidates = np.where((y_true == idx) & correct)[0]
+        ordered = candidates[np.argsort(probs[candidates, idx], kind="stable")]
+        selected = [int(ordered[len(ordered) // 2])] if len(ordered) else []
+        errors = np.where((y_true == idx) & ~correct)[0]
+        errors = errors[np.argsort(-probs[errors].max(axis=1), kind="stable")]
+        selected.extend(errors[: per_class - len(selected)].tolist())
+        if len(selected) < per_class:
+            selected.extend(int(i) for i in ordered if i not in selected)
+        chosen.extend(selected[:per_class])
     return chosen
 
 
@@ -230,7 +241,7 @@ def _plot_sample_predictions(
     y_true: np.ndarray,
     probs: np.ndarray,
 ) -> None:
-    """Render a grid of representative test X-rays with prediction + confidence."""
+    """Render the documented correct/error selection with uncalibrated scores."""
     indices = _select_sample_indices(y_true, probs, per_class=2)
     preds = probs.argmax(axis=1)
 
@@ -255,7 +266,8 @@ def _plot_sample_predictions(
         mark = "OK" if correct else "X"
         color = "#2ca02c" if correct else "#d62728"
         ax.set_title(
-            f"[{mark}] pred: {pretty[pred_name]}  ({confidence:.1f}%)\ntrue: {pretty[true_name]}",
+            f"[{mark}] pred: {pretty[pred_name]}  (score {confidence:.1f}%)\n"
+            f"true: {pretty[true_name]}",
             color=color,
             fontsize=11,
         )
@@ -265,7 +277,9 @@ def _plot_sample_predictions(
     for ax in axes[len(indices) :]:
         ax.axis("off")
 
-    fig.suptitle("Sample Test Predictions", fontsize=15, fontweight="bold", y=0.99)
+    fig.suptitle(
+        "Selected Correct and Incorrect Test Predictions", fontsize=15, fontweight="bold", y=0.99
+    )
     fig.tight_layout(rect=(0, 0, 1, 0.97))
     out = REPORTS_DIR / "sample_predictions.png"
     fig.savefig(out, bbox_inches="tight")

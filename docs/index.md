@@ -1,58 +1,39 @@
-# chest-xray-classifier
+# Chest X-Ray Classification
 
-[Open the interactive showcase](showcase.md)
+Classify pediatric frontal radiographs as normal, bacterial pneumonia or viral pneumonia with ConvNeXt-V2-Tiny.
 
-![chest-xray-classifier - ConvNeXt-V2-Tiny pneumonia classifier](images/banner.jpg)
+[![Interactive report explorer](images/showcase.png)](showcase.md)
 
-Production-grade 3-class chest X-ray classifier distinguishing **normal**, **bacterial pneumonia**, and **viral pneumonia** on pediatric frontal radiographs.
-
-## Overview
-
-| | |
-|---|---|
-| **Task** | Multiclass image classification (3 classes) |
-| **Dataset** | [Kaggle Chest X-Ray Images (Pneumonia)](https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia) - 5,856 radiographs |
-| **Main model** | ConvNeXt-V2-Tiny (`facebook/convnextv2-tiny-22k-224`) fine-tuned |
-| **Baseline** | DINOv2 ViT-S linear probe (`facebook/dinov2-small`) |
-| **Stack** | PyTorch Lightning · Hydra · MLflow · DVC · FastAPI · Docker · GitHub Actions · MkDocs |
-| **License** | MIT |
+[Explore classification errors](showcase.md) · [Run the published model](https://github.com/kiselyovd/chest-xray-classifier#try-the-published-model) · [Model and weights](https://huggingface.co/kiselyovd/chest-xray-classifier)
 
 ## Results
 
-| Model | Accuracy | Macro F1 | Macro AUROC (OvR) |
-|---|---|---|---|
-| **ConvNeXt-V2-Tiny** (main) | **91.3%** | **90.3%** | **97.5%** |
-| DINOv2 ViT-S linear probe (baseline) | 85.6% | 84.2% | 94.2% |
+<!-- ARTIFACT-MANIFEST:START -->
+### Current artifact and evaluation
 
-## Visualizations
+**Replayed on the original 624-image test fold**
 
-![Test-set confusion matrix - ConvNeXt-V2-Tiny - 91.3% accuracy (n=624)](images/confusion_matrix.png)
+| Metric | Value |
+|---|---:|
+| Accuracy | 91.35% |
+| Macro F1 | 90.30% |
+| Macro AUROC (OvR) | 97.53% |
 
-Confusion matrix on the held-out test split (n=624) - ConvNeXt-V2-Tiny at 91.3% accuracy.
+The complete confusion matrix and metrics reproduce the stored main report. Historical checkpoint training membership is unrecorded; the baseline remains a stored report.
 
-![Per-class one-vs-rest ROC curves - macro AUROC 97.5%](images/roc_curves.png)
+[Evaluation record](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/replay-native-2026-10-15.json) · [Pinned model](https://huggingface.co/kiselyovd/chest-xray-classifier/tree/d0de246d324b8b1a45523cd4b0a0a514a4aa7d89)
+<!-- ARTIFACT-MANIFEST:END -->
 
-One-vs-rest ROC curves per class - macro AUROC 97.5%.
+The explorer retains the DINOv2 comparison as a stored report. The labelled image gallery is separate from benchmark results. [Replay and preprocessing contract](EVALUATION.md).
 
-![Sample predictions on test radiographs](images/sample_predictions.png)
+## Inspect real cases
 
-Sample predictions on test radiographs with predicted class and confidence.
+The test-prediction panel selects a median-score correct case and a high-score error for every class when both are available. Scores are model outputs, not calibrated certainty.
 
-## Sections
+![Selected correct and incorrect predictions from the original test fold](images/sample_predictions.png)
 
-- [Architecture](architecture.md) - data flow, model choices, metrics rationale
-- [Training](training.md) - running experiments, logging, overrides
-- [Serving](serving.md) - FastAPI endpoints, Docker deployment
-- [Benchmarks](BENCHMARKS.md) - vs literature, trade-offs
-- [Reproducibility](REPRODUCIBILITY.md) - pinned environment, one-command re-run
-- [Limitations](LIMITATIONS.md) - failure modes, dataset bias
-- [Model card](model_card.md.j2) - HF Hub card template
+## Protocol and reuse
 
-## Links
+The original Kaggle test fold contains 624 images. Filename-based pneumonia subtypes produce 242 bacterial, 234 normal and 148 viral labels. File hashes, model identity and prediction arrays accompany the replay. Historical checkpoint training membership and patient-level independence are not established by the old run records; clinical validation has not been performed.
 
-- **Code:** [GitHub](https://github.com/kiselyovd/chest-xray-classifier)
-- **Model:** [Hugging Face](https://huggingface.co/kiselyovd/chest-xray-classifier)
-
-## Disclaimer
-
-Research/educational artifact only - **not** intended for clinical use.
+[Evaluation contract](EVALUATION.md) · [Component licenses](LICENSES.md) · [Project guide](project-guide.md) · [Limitations](LIMITATIONS.md)

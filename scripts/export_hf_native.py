@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import argparse
+import shutil
 from pathlib import Path
 
+from chest_xray_classifier.data.transforms import build_hf_processor
 from chest_xray_classifier.inference.predict import load_model
 
 
@@ -13,9 +15,10 @@ def main() -> None:
     parser.add_argument("--checkpoint", default="artifacts/checkpoints/best.ckpt")
     parser.add_argument("--out", default="artifacts/hf_export")
     parser.add_argument(
-        "--base-model",
-        default="facebook/convnextv2-tiny-22k-224",
-        help="HF base model ID to copy preprocessor from.",
+        "--image-size",
+        type=int,
+        default=224,
+        help="Evaluation crop size; the resize recipe comes from this project.",
     )
     args = parser.parse_args()
 
@@ -37,10 +40,11 @@ def main() -> None:
 
     backbone.save_pretrained(out)
 
-    if args.base_model:
-        from transformers import AutoImageProcessor
-
-        AutoImageProcessor.from_pretrained(args.base_model).save_pretrained(out)
+    build_hf_processor(args.image_size).save_pretrained(out)
+    shutil.copy2(Path(__file__).resolve().parents[1] / "LICENSE", out / "LICENSE.processor.txt")
+    for name in ("preprocessor_config.json", "hf_processor.py", "LICENSE.processor.txt"):
+        path = out / name
+        path.write_text(path.read_text(encoding="utf-8"), encoding="utf-8", newline="\n")
 
     print(f"Exported HF-native model to {out}")
 

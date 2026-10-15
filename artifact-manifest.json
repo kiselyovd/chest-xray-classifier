@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "project": "chest-xray-classifier",
+  "hub": {
+    "repo_id": "kiselyovd/chest-xray-classifier",
+    "repo_type": "model",
+    "revision": "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89",
+    "files": [
+      {
+        "path": "model.safetensors",
+        "role": "weights",
+        "sha256": "d3c0b8fba6caa340cfbabf06119c6a9988b018c277a72d9565e0f62acda2a7d0"
+      },
+      {
+        "path": "config.json",
+        "role": "config",
+        "sha256": "f85b3ca1c65ed85e698b77e91f7fc1713b5a6541af33015b2f6a6d83f23ead23"
+      }
+    ]
+  },
+  "inference": {
+    "library": "transformers",
+    "input": "RGB uint8; tensor bilinear resize shortest255; rounded CenterCrop224; /255; ImageNet normalization",
+    "output": "three logits; softmax gives uncalibrated scores",
+    "labels": {
+      "0": "bacterial_pneumonia",
+      "1": "normal",
+      "2": "viral_pneumonia"
+    }
+  },
+  "dataset": {
+    "source": "https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia",
+    "source_receipt": "reports/provenance/chest-source.json",
+    "split_manifest": "reports/provenance/chest-test-manifest.json",
+    "split_records_sha256": "c763fd1a0cee678815db830f59c54164d57e82b16df6c630c4d1a8a4bdc14280"
+  },
+  "evaluation": {
+    "status": "replayed_reconstructed",
+    "label": "Replayed on the original 624-image test fold",
+    "scope": "The complete confusion matrix and metrics reproduce the stored main report. Historical checkpoint training membership is unrecorded; the baseline remains a stored report.",
+    "training_membership_verified": false,
+    "report": "reports/replay-native-2026-10-15.json",
+    "report_sha256": "66c3f89ed3c0b6820538a1eff83d2d39bbdea19a51441de0edb8bb2367a60cc5",
+    "metrics": [
+      {
+        "name": "Accuracy",
+        "pointer": "/accuracy"
+      },
+      {
+        "name": "Macro F1",
+        "pointer": "/macro_f1"
+      },
+      {
+        "name": "Macro AUROC (OvR)",
+        "pointer": "/auroc_macro_ovr"
+      }
+    ]
+  },
+  "licenses": {
+    "code": {
+      "id": "MIT",
+      "path": "LICENSE"
+    },
+    "dataset": {
+      "id": "CC-BY-4.0",
+      "source": "https://data.mendeley.com/datasets/rscbjbr9sj/2"
+    },
+    "base_models": {
+      "id": "Apache-2.0",
+      "source": "https://huggingface.co/facebook/convnextv2-tiny-22k-224"
+    },
+    "weights": {
+      "declared": "MIT",
+      "upstream_terms": "Apache-2.0",
+      "details": "docs/LICENSES.md"
+    }
+  }
+}

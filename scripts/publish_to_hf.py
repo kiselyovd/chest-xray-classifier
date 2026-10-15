@@ -9,6 +9,7 @@ import shutil
 import tempfile
 from pathlib import Path
 
+from artifact_manifest import render, validate
 from huggingface_hub import HfApi
 from jinja2 import Environment, FileSystemLoader
 
@@ -155,6 +156,9 @@ def main() -> None:
         help="Directory produced by export_hf_native.py; contents copied to HF repo root.",
     )
     args = parser.parse_args()
+    manifest, values = validate(Path.cwd())
+    if args.repo_id != manifest["hub"]["repo_id"]:
+        raise SystemExit("Target differs from the reviewed artifact manifest")
 
     artifacts_dir = Path(args.artifacts)
     if not artifacts_dir.exists():
@@ -236,10 +240,15 @@ def main() -> None:
                 dataset_name,
                 args.hf_dataset,
             ),
+            artifact_contract=render(manifest, values),
+            artifact_revision=manifest["hub"]["revision"],
         )
 
         api = HfApi(token=os.environ.get("HF_TOKEN"))
-        api.create_repo(repo_id=args.repo_id, exist_ok=True)
+        if api.whoami()["name"] != "kiselyovd":
+            raise SystemExit("HF owner guard failed: expected kiselyovd")
+        if api.model_info(args.repo_id).id != manifest["hub"]["repo_id"]:
+            raise SystemExit("Unexpected target model repository")
         commit_message = f"Release {args.tag}" if args.tag else "Upload artifacts"
         api.upload_folder(
             repo_id=args.repo_id,

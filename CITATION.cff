@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "Cite this software and separately credit the original chest X-ray dataset and model architectures."
+type: software
+title: "Chest X-ray classification with source-identified evaluation"
+authors:
+  - family-names: Kiselyov
+    given-names: Daniil
+repository-code: "https://github.com/kiselyovd/chest-xray-classifier"
+license: MIT
+references:
+  - type: data
+    title: "Labeled Optical Coherence Tomography (OCT) and Chest X-Ray Images for Classification"
+    authors:
+      - family-names: Kermany
+        given-names: Daniel
+      - family-names: Zhang
+        given-names: Kang
+      - family-names: Goldbaum
+        given-names: Michael
+    doi: 10.17632/rscbjbr9sj.2
+    url: "https://data.mendeley.com/datasets/rscbjbr9sj/2"
+    license: CC-BY-4.0
