@@ -3,7 +3,7 @@
   "weights_revision": "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89",
   "processor_files_sha256": {
     "hf_processor.py": "cbe88447d9b65d9eabb88f468219a3ac8963f7bce4ae233cb21a22676cf8eaf3",
-    "preprocessor_config.json": "9678bc5421c4eb428b11389e5a5fd3e36790686be533193617dc898abf977d2a"
+    "preprocessor_config.json": "8fa44d718a4b6537041d445c80256992305ef02d673238a78cdb81cb21db7cb2"
   },
   "probability_max_abs_error": 1.6689300537109375e-06,
   "prediction_disagreements": 0,

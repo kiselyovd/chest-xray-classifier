@@ -40,7 +40,7 @@
     "scope": "The complete confusion matrix and metrics reproduce the stored main report. Historical checkpoint training membership is unrecorded; the baseline remains a stored report.",
     "training_membership_verified": false,
     "report": "reports/replay-native-2026-10-15.json",
-    "report_sha256": "66c3f89ed3c0b6820538a1eff83d2d39bbdea19a51441de0edb8bb2367a60cc5",
+    "report_sha256": "635fadbc43762e3bde8e20e464764e7be5561b9c23429e336ac219ae1c9bdc9b",
     "metrics": [
       {
         "name": "Accuracy",
