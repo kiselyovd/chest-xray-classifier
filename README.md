@@ -23,7 +23,7 @@ A research classifier for normal, bacterial-pneumonia, and viral-pneumonia chest
 
 The complete confusion matrix and metrics reproduce the stored main report. Historical checkpoint training membership is unrecorded; the baseline remains a stored report.
 
-[Evaluation record](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/replay-native-2026-10-15.json) · [Pinned model](https://huggingface.co/kiselyovd/chest-xray-classifier/tree/d0de246d324b8b1a45523cd4b0a0a514a4aa7d89)
+[Evaluation record](https://github.com/kiselyovd/chest-xray-classifier/blob/main/reports/replay-native-2026-10-15.json) · [Pinned model](https://huggingface.co/kiselyovd/chest-xray-classifier/tree/09bd78b58c657870961faa1b79699da5ca8bc796)
 <!-- ARTIFACT-MANIFEST:END -->
 
 [Replay details and file identities](docs/EVALUATION.md). The explorer also includes the [DINOv2 stored baseline report](reports/metrics_baseline.json); a matching baseline checkpoint is absent from this Hub snapshot.
@@ -37,7 +37,7 @@ from torchvision.transforms import v2
 from transformers import AutoModelForImageClassification
 
 REPO = "kiselyovd/chest-xray-classifier"
-REVISION = "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89"
+REVISION = "09bd78b58c657870961faa1b79699da5ca8bc796"
 model = AutoModelForImageClassification.from_pretrained(
     REPO, revision=REVISION, use_safetensors=True, trust_remote_code=False
 ).eval()

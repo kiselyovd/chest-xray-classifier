@@ -4,7 +4,7 @@
   "hub": {
     "repo_id": "kiselyovd/chest-xray-classifier",
     "repo_type": "model",
-    "revision": "d0de246d324b8b1a45523cd4b0a0a514a4aa7d89",
+    "revision": "09bd78b58c657870961faa1b79699da5ca8bc796",
     "files": [
       {
         "path": "model.safetensors",
@@ -15,6 +15,21 @@
         "path": "config.json",
         "role": "config",
         "sha256": "f85b3ca1c65ed85e698b77e91f7fc1713b5a6541af33015b2f6a6d83f23ead23"
+      },
+      {
+        "path": "preprocessor_config.json",
+        "role": "processor",
+        "sha256": "8fa44d718a4b6537041d445c80256992305ef02d673238a78cdb81cb21db7cb2"
+      },
+      {
+        "path": "hf_processor.py",
+        "role": "processor_code",
+        "sha256": "cbe88447d9b65d9eabb88f468219a3ac8963f7bce4ae233cb21a22676cf8eaf3"
+      },
+      {
+        "path": "LICENSE.processor.txt",
+        "role": "license",
+        "sha256": "a8209794f671166b36312abd4f75beaaf8eebfc2f1a118d3a1162ba36bdeea0a"
       }
     ]
   },
